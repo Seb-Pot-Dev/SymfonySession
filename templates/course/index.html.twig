@@ -4,5 +4,7 @@
 
 {% block body %}
 <h1>Liste des formations</h1>
-
+{% for course in courses %}
+    {{course.name}}<br>
+{% endfor %}
 {% endblock %}

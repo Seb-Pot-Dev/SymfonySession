@@ -11,9 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CategoryController extends AbstractController
 {
     #[Route('/category', name: 'app_category')]
-
-    //On appel le manager de doctrine 
     public function index(ManagerRegistry $doctrine): Response
+    //On appel le manager de doctrine 
     {
         //récupérer les Category de la base de donnees
         $categories = $doctrine->getRepository(Category::class)->findAll();
