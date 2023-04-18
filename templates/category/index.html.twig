@@ -3,5 +3,8 @@
 {% block title %}Hello CategoryController!{% endblock %}
 
 {% block body %}
-
+    <h1>Liste des catégories</h1>
+    {% for category in categories %}
+        {{ category.name }}
+    {% endfor %}
 {% endblock %}
