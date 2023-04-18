@@ -5,6 +5,6 @@
 {% block body %}
 <h1>Liste des formations</h1>
 {% for course in courses %}
-    {{course.name}}<br>
+    <a href="{{ path('show_course', {'id': course.id}) }}">{{course.name}}</a><br>
 {% endfor %}
 {% endblock %}

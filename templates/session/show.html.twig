@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'une session{% endblock %}
+
+{% block body %}
+<h1>Liste des modules pour la session "{{ session.name }}"</h1>
+<ul>
+{% for planning in session.plannings %}
+    <li>{{ planning }}</li><br>
+{% endfor %}
+</ul>
+{% endblock %}

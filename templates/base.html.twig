@@ -14,16 +14,14 @@
         {% endblock %}
     </head>
     <body>
+        <nav>
+            <ul>
+                <li><a href="{{ path('app_category') }}">Catégories</a></li>
+                <li><a href="{{ path('app_course') }}">Formations</a></li>
+                <li><a href="{{ path('app_session') }}">Sessions</a></li>
+            </ul>
+        </nav>
         {% block body %}
-        <header>
-            <nav>
-                <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </nav>
-        </header>
         
         
         {% endblock %}

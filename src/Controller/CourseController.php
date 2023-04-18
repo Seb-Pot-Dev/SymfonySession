@@ -23,4 +23,16 @@ class CourseController extends AbstractController
             'courses' => $courses
         ]);
     }
+
+    #[Route('/course/{id}', name: 'show_course')]
+    public function show(Course $course): Response
+    //On appel l'objet course dont l'id est passé en parametre par la route
+    {
+
+        //renvoie la vue et associe des données
+        return $this->render('course/show.html.twig', [
+            'controller_name' => 'courseController',
+            'course' => $course
+        ]);
+    }
 }

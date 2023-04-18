@@ -65,4 +65,8 @@ class Planning
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->module.", durée : ".$this->nbDay;
+    }
 }

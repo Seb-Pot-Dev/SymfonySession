@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'une formation{% endblock %}
+
+{% block body %}
+<h1>Liste des sessions pour la formation "{{ course.name }}"</h1>
+<ul>
+{% for session in course.sessions %}
+    <li>{{ session.name }}</li><br>
+{% endfor %}
+</ul>
+{% endblock %}
