@@ -58,9 +58,11 @@ class Student
         return $this;
     }
 
-    public function getBirthDate(): ?\DateTimeInterface
+    public function getBirthDate()
     {
-        return $this->birthDate;
+        
+        $date= $this->birthDate;
+        return date_format($date, 'd/m/Y');
     }
 
     public function setBirthDate(\DateTimeInterface $birthDate): self
@@ -92,5 +94,8 @@ class Student
         $this->email = $email;
 
         return $this;
+    }
+    public function __toString(){
+        return $this->firstName.' '.$this->lastName.' ('.$this->getBirthDate().') ';
     }
 }
