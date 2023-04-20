@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Session;
+use App\Form\SessionFormType;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,12 +13,36 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SessionController extends AbstractController
 {
     #[Route('/session', name: 'app_session')]
-    public function index(ManagerRegistry $doctrine): Response
+    public function index(ManagerRegistry $doctrine, session $session = null, Request $request): Response
     {
         $sessions= $doctrine->getRepository(Session::class)->findBy([], ['name' => 'ASC']);
+        
+        //FORMULAIRE -------------
+            //Construire un formulaire qui se repose sur le $builder présent dans le sessionFormType
+            $form = $this->createForm(SessionFormType::class, $session);
+            //Quand il y a une action dans le formulaire, analyse ce que récupère la requete 
+            $form->handleRequest($request);
+
+            //Si le formulaire est soumis et passe les filtres de sécurité
+            if($form->isSubmitted() && $form->isValid()){
+
+                //récupère les données du formulaire saisies et les injectent 'hydrater' via les setter dans l'objet entreprise.
+                $session = $form->getData();
+                //On récupère le manager de doctrine pour accéder aux méthodes suivantes
+                $entityManager = $doctrine->getManager();
+                //On prépare notre objet
+                $entityManager->persist($session);
+                //On execute notre objet pour insérer les données en BDD.
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_session');
+            }
+        //FIN FOMULAIRE ---------
+
         return $this->render('session/index.html.twig', [
             'controller_name' => 'SessionController',
-            'sessions' => $sessions
+            'sessions' => $sessions,
+            'formAddSession'=>$form->createView()
         ]);
     }
     #[Route('/session/{id}', name: 'show_session')]
@@ -27,7 +53,7 @@ class SessionController extends AbstractController
         //renvoie la vue et associe des données
         return $this->render('session/show.html.twig', [
             'controller_name' => 'SessionController',
-            'session' => $session
+            'session' => $session,
         ]);
     }
 }

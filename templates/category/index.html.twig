@@ -7,4 +7,10 @@
     {% for category in categories %}
         <a href="{{ path('show_category', {'id': category.id}) }}">{{ category.name }}</a><br>
     {% endfor %}
+
+    <h2>Ajouter une catégorie</h2>
+
+    {{ form(formAddCategory) }}
+
 {% endblock %}
+

@@ -22,9 +22,11 @@
                 <li><a href="{{ path('app_category') }}">Catégories</a></li>
                 <li><a href="{{ path('app_course') }}">Formations</a></li>
                 <li><a href="{{ path('app_session') }}">Sessions</a></li>
+                <li><a href="{{ path('app_module') }}">Modules</a></li>
                 <li><a href="{{ path('app_student') }}">Etudiants</a></li>
+                <li><a href="{{ path('app_teacher') }}">Profs</a></li>
                 {% if is_granted("ROLE_ADMIN") %}
-                <li><a href="{{ path('app_register') }}">Nouvel utilisateur</a></li>
+                <li><a href="{{ path('app_register') }}">Utilisateurs</a></li>
                 {% endif %}
                 <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
             </ul>

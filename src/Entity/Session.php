@@ -38,9 +38,13 @@ class Session
     #[ORM\OneToMany(mappedBy: 'session', targetEntity: Planning::class, orphanRemoval: true)]
     private Collection $plannings;
 
+    #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'sessions')]
+    private Collection $students;
+
     public function __construct()
     {
         $this->plannings = new ArrayCollection();
+        $this->students = new ArrayCollection();
     }
 
 
@@ -154,5 +158,29 @@ class Session
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, Student>
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(Student $student): self
+    {
+        if (!$this->students->contains($student)) {
+            $this->students->add($student);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Student $student): self
+    {
+        $this->students->removeElement($student);
+
+        return $this;
     }
 }

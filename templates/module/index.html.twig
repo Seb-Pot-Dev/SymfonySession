@@ -3,5 +3,12 @@
 {% block title %}Hello ModuleController!{% endblock %}
 
 {% block body %}
+<h1>Liste des modules toutes catégories</h1>
+{% for module in modules %}
+    <a href="{{ path('show_module', {'id': module.id}) }}">{{module.name}}</a><br>
+{% endfor %}
+
+<h2>Ajouter un module</h2>
+{{ form (formAddModule)}}
 
 {% endblock %}
