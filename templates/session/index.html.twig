@@ -7,6 +7,11 @@
     {{ form(formAddSession)}}
 <h1>Toutes les sessions</h1>
     {% for session in sessions %}
-        <a href="{{ path('show_session', {'id': session.id}) }}">{{session.name}}</a><br>
+        <a href="{{ path('show_session', {'id': session.id}) }}">
+            <ul>
+                <li>Nom: {{session.name}}</li>
+                <li>Durée: {{session.totalDuration}} jours</li>
+            </ul>
+        </a><br>
     {% endfor %}
 {% endblock %}

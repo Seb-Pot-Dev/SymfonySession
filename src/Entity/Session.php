@@ -41,6 +41,8 @@ class Session
     #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'sessions')]
     private Collection $students;
 
+    private ?int $totalDuration = null;
+
     public function __construct()
     {
         $this->plannings = new ArrayCollection();
@@ -155,11 +157,7 @@ class Session
 
         return $this;
     }
-    public function __toString()
-    {
-        return $this->name;
-    }
-
+    
     /**
      * @return Collection<int, Student>
      */
@@ -173,14 +171,31 @@ class Session
         if (!$this->students->contains($student)) {
             $this->students->add($student);
         }
-
+        
         return $this;
     }
-
+    
+    
     public function removeStudent(Student $student): self
     {
         $this->students->removeElement($student);
-
+        
         return $this;
+    }
+    //Pour compter le nombre de jours total d'une session en adition la durée des plannings
+    public function getTotalDuration()
+    {
+        $i=0;
+        
+        foreach($this->plannings as $planning)
+        {
+            $i+=$planning->getNbDay();
+        }
+
+        return $i;
+    }
+    public function __toString()
+    {
+        return $this->name;
     }
 }
