@@ -5,22 +5,29 @@
 {% block body %}
 
 <h1>Détail de la session: "{{ session.name }}"</h1>
-
+    <ul>
+        <li>Durée : {{session.totalDuration}}</li>
+        <li>Durée : {{session.teacher}}</li>
+        <li>Débute le {{session.dateStart| date("m/d/Y")}} et fini le {{session.dateEnd|date("m/d/Y")}}</li>
+        <li>Nombre de places maximum: {{session.nbPlace}}</li>
+        <li>Nombre de places disponibles : {{session.availableNbPlace}}</li>        
+    </ul>
+    <br>
     <h3>Plannings de la session</h3>
         <ul>
         {% for planning in session.plannings %}
-            <li>{{ planning }}</li><br>
+            <li>{{ planning }}</li>
         {% endfor %}
         </ul>
-
-    <h4>Tous les modules disponibles</h4>
+    <br>
+    <h4>Modules disponibles</h4>
         <ul>
             {% for module in available_modules %}
                 <li>{{module.name}}</li>
             {% endfor %}
         </ul>
         <a href="{{ path('app_module') }}">Créer un nouveau module</a>
-
+    
     <h3>Inscrits a la session:</h3>
         <ul>
             {% for current_student in session.students %}
@@ -29,8 +36,8 @@
                 </li>
             {% endfor %}
         </ul>
-
-    <h4>Tous les étudiants disponibles</h4>
+    <br>
+    <h4>Étudiants disponibles</h4>
         <ul>
             {% for available_student in available_students %}
                 <li>
