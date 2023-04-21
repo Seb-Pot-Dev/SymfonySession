@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Module;
 use App\Entity\Session;
-use App\Entity\Planning;
 use App\Entity\Student;
 use App\Form\SessionFormType;
+use App\Repository\SessionRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,18 +49,21 @@ class SessionController extends AbstractController
         ]);
     }
     #[Route('/session/{id}', name: 'show_session')]
-    public function show(ManagerRegistry $doctrine, Session $session, Planning $planning): Response
+    public function show(Session $session, SessionRepository $sr): Response
     //On appel l'objet session dont l'id est passé en parametre par la route
     {
-        $students = $doctrine->getRepository(Student::class)->findAll();
-        $modules = $doctrine->getRepository(Module::class)->findAll();
-        // $plannings= $doctrine->getRepository(Planning::class)->findBy(['session'=>'id'],);
+        //récupère l'id de la session
+        $session_id=$session->getId();
+        //récupère tous les étudiants NON-INSCRITS a cette session
+        $NotScheduledStudents = $sr->findNotScheduledStudents($session_id);
+        $NotScheduledModules = $sr->findNotScheduledModules($session_id);
+
         //renvoie la vue et associe des données
         return $this->render('session/show.html.twig', [
-            'controller_name' => 'SessionController',
             'session' => $session,
-            'modules'=>$modules,
-            'students'=>$students
+            'available_students' => $NotScheduledStudents,
+            'available_modules'=> $NotScheduledModules
+
             // 'plannings' => $plannings
         ]);
     }
