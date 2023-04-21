@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Module;
 use App\Entity\Session;
+use App\Entity\Planning;
+use App\Entity\Student;
 use App\Form\SessionFormType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,14 +49,19 @@ class SessionController extends AbstractController
         ]);
     }
     #[Route('/session/{id}', name: 'show_session')]
-    public function show(Session $session): Response
+    public function show(ManagerRegistry $doctrine, Session $session, Planning $planning): Response
     //On appel l'objet session dont l'id est passé en parametre par la route
     {
-
+        $students = $doctrine->getRepository(Student::class)->findAll();
+        $modules = $doctrine->getRepository(Module::class)->findAll();
+        // $plannings= $doctrine->getRepository(Planning::class)->findBy(['session'=>'id'],);
         //renvoie la vue et associe des données
         return $this->render('session/show.html.twig', [
             'controller_name' => 'SessionController',
             'session' => $session,
+            'modules'=>$modules,
+            'students'=>$students
+            // 'plannings' => $plannings
         ]);
     }
 }

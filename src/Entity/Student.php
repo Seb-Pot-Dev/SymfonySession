@@ -70,9 +70,8 @@ class Student
 
     public function getBirthDate()
     {
-        
-        $date= $this->birthDate;
-        return date_format($date, 'd/m/Y');
+
+        return $this->birthDate;
     }
 
     public function setBirthDate(\DateTimeInterface $birthDate): self
@@ -105,10 +104,7 @@ class Student
 
         return $this;
     }
-    public function __toString(){
-        return $this->firstName.' '.$this->lastName.' ('.$this->getBirthDate().') ';
-    }
-
+    
     /**
      * @return Collection<int, Session>
      */
@@ -123,16 +119,20 @@ class Student
             $this->sessions->add($session);
             $session->addStudent($this);
         }
-
+        
         return $this;
     }
-
+    
     public function removeSession(Session $session): self
     {
         if ($this->sessions->removeElement($session)) {
             $session->removeStudent($this);
         }
-
+        
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->firstName . ' ' . $this->lastName . ' (' . $this->birthDate->format('d-m-Y') . ') ';
     }
 }

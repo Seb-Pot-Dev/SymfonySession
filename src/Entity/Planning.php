@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PlanningRepository;
 use Doctrine\ORM\Mapping as ORM;
+use PhpParser\Node\Name;
 
 #[ORM\Entity(repositoryClass: PlanningRepository::class)]
 class Planning

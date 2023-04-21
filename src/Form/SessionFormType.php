@@ -20,10 +20,12 @@ class SessionFormType extends AbstractType
                 'label' => 'Nom'
             ])
             ->add('dateStart', DateType::class, [
-                'label' => 'Débute'
+                'label' => 'Débute',
+                'widget' => 'single_text'
             ])
             ->add('dateEnd', DateType::class, [
-                'label' => 'Fini'
+                'label' => 'Fini',
+                'widget' => 'single_text'
             ])
             ->add('nbPlace', IntegerType::class, [
                 'label' => 'Places'
