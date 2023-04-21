@@ -1,3 +1,9 @@
+:root {
+    --main-color: grey;
+    --secondary-color: rgb(255, 252, 205);
+    --background-color: rgb(213, 213, 213);
+    --text-color1: black;
+  }
 *{
     margin: 0;
     padding: 0;
@@ -11,21 +17,32 @@ nav ul{
 nav ul a{
     display: block;
     border-radius: 5px;
-    background-color: grey;
+    background-color:var(--main-color);
     margin: 10px;
     padding: 10px;
     font-size: large;
-    color:black;
+    color:var(--text-color1);
     text-decoration: none;
 }
 a{
     display: block;
     border-radius: 5px;
-    background-color: grey;
+    background-color:var(--main-color);
     margin: 10px;
     padding: 10px;
     font-size: large;
-    color:black;
+    color:var(--text-color1);
     text-decoration: none;
 }
-
+.session-detail-container{
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.session-detail-items{
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+    margin: 10px;
+    padding: 10px;
+}
