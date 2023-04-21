@@ -3,10 +3,10 @@
 {% block title %}Hello sessionController!{% endblock %}
 
 {% block body %}
-<h1>Liste des session toute catégories</h1>
-{% for session in sessions %}
-    <a href="{{ path('show_session', {'id': session.id}) }}">{{session.name}}</a><br>
-{% endfor %}
 <h2>Ajouter une session</h2>
-{{ form(formAddSession)}}
+    {{ form(formAddSession)}}
+<h1>Toutes les sessions</h1>
+    {% for session in sessions %}
+        <a href="{{ path('show_session', {'id': session.id}) }}">{{session.name}}</a><br>
+    {% endfor %}
 {% endblock %}

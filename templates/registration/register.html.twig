@@ -3,28 +3,32 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-<h1>Liste des utilisateurs autorisés de l'application SESSION:</h1>
-<ul>
-{% for user in users %}
-    <li>{{user.pseudo}}</li>
-{% endfor %}
-</ul>
 
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1>Ajouter un nouvel utilisateur</h1>
+<h1>Ajouter un nouvel utilisateur</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.pseudo) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {# Pas besoin de  la checkbox des conditions d'utilisation #}
-        {# {{ form_row(registrationForm.agreeTerms) }} #}
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.pseudo) }}
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Password'
+            }) }}
+            {# Pas besoin de  la checkbox des conditions d'utilisation #}
+            {# {{ form_row(registrationForm.agreeTerms) }} #}
 
-        <button type="submit" class="btn">Ajouter</button>
-    {{ form_end(registrationForm) }}
+            <button type="submit" class="btn">Ajouter</button>
+        {{ form_end(registrationForm) }}
+
+<h1>Liste des utilisateurs autorisés de l'application SESSION:</h1>
+
+    <ul>
+        {% for user in users %}
+            <li>
+                {{user.pseudo}}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

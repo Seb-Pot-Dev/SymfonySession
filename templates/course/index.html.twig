@@ -3,12 +3,12 @@
 {% block title %}Hello CourseController!{% endblock %}
 
 {% block body %}
+<h2>Ajouter une formation</h2>
+{{ form (formAddCourse)}}
 <h1>Liste des formations</h1>
 {% for course in courses %}
     <a href="{{ path('show_course', {'id': course.id}) }}">{{course.name}}</a><br>
 {% endfor %}
 
-<h2>Ajouter une formation</h2>
-{{ form (formAddCourse)}}
 
 {% endblock %}

@@ -3,32 +3,41 @@
 {% block title %}Détail d'une session{% endblock %}
 
 {% block body %}
-{# {{ dump(session.plannings) }} #}
+
 <h1>Détail de la session: "{{ session.name }}"</h1>
-<h3>Plannings de la session</h3>
-<ul>
-{% for planning in session.plannings %}
-    <li>{{ planning }}</li><br>
-{% endfor %}
-</ul>
-<h4>Tous les modules disponibles</h4>
-{% for module in available_modules %}
-    <li>{{module.name}}</li>
-{% endfor %}
-<h3>Inscrits a la session:</h3>
-<ul>
-    {% for current_student in session.students %}
-        <li>
-            {{ current_student}}
-        </li>
-    {% endfor %}
-</ul>
-<h4>Tous les étudiants disponibles</h4>
-<ul>
-    {% for available_student in available_students %}
-        <li>
-            {{available_student}}
-        </li>
-    {% endfor %}
+
+    <h3>Plannings de la session</h3>
+        <ul>
+        {% for planning in session.plannings %}
+            <li>{{ planning }}</li><br>
+        {% endfor %}
+        </ul>
+
+    <h4>Tous les modules disponibles</h4>
+        <ul>
+            {% for module in available_modules %}
+                <li>{{module.name}}</li>
+            {% endfor %}
+        </ul>
+        <a href="{{ path('app_module') }}">Créer un nouveau module</a>
+
+    <h3>Inscrits a la session:</h3>
+        <ul>
+            {% for current_student in session.students %}
+                <li>
+                    {{ current_student}}
+                </li>
+            {% endfor %}
+        </ul>
+
+    <h4>Tous les étudiants disponibles</h4>
+        <ul>
+            {% for available_student in available_students %}
+                <li>
+                    {{available_student}}
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ path('app_student') }}">Créer un nouvel étudiant</a>
 
 {% endblock %}

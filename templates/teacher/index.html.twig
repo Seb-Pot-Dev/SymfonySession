@@ -3,12 +3,12 @@
 {% block title %}Hello TeacherController!{% endblock %}
 
 {% block body %}
+<h2>Ajouter un prof</h2>
+    {{ form(formAddTeacher)}}
 <h1>Liste des profs </h1>
     <ul>
-    {% for teacher in teachers %}
-        <li>{{teacher}}</li>
-    {% endfor %}
+        {% for teacher in teachers %}
+            <li>{{teacher}}</li>
+        {% endfor %}
     </ul>
-<h2>Ajouter un prof</h2>
-{{ form(formAddTeacher)}}
 {% endblock %}

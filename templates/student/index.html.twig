@@ -3,12 +3,12 @@
 {% block title %}Hello StudentController!{% endblock %}
 
 {% block body %}
-<h1>Liste des étudiants </h1>
-    <ul>
-    {% for student in students %}
-        <li>{{student}}</li>
-    {% endfor %}
-    </ul>
 <h2>Ajouter un étudiant </h2>
 {{ form(formAddStudent)}}
+<h1>Liste des étudiants </h1>
+<ul>
+    {% for student in students %}
+    <li>{{student}}</li>
+    {% endfor %}
+</ul>
 {% endblock %}
