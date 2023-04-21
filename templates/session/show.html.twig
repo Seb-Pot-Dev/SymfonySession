@@ -6,11 +6,11 @@
 
 <h1>Détail de la session: "{{ session.name }}"</h1>
     <ul>
-        <li>Durée : {{session.totalDuration}}</li>
-        <li>Durée : {{session.teacher}}</li>
+        <li>Durée : {{session.totalDuration}} jours</li>
+        <li>Prof référent : {{session.teacher}}</li>
         <li>Débute le {{session.dateStart| date("m/d/Y")}} et fini le {{session.dateEnd|date("m/d/Y")}}</li>
-        <li>Nombre de places maximum: {{session.nbPlace}}</li>
-        <li>Nombre de places disponibles : {{session.availableNbPlace}}</li>        
+        <li>Nombre de places maximum: {{session.nbPlace}} places </li>
+        <li>Nombre de places disponibles : {{session.availableNbPlace}} places </li>        
     </ul>
     <br>
     <h3>Plannings de la session</h3>
