@@ -41,7 +41,7 @@
         <ul>
             {% for available_student in available_students %}
                 <li>
-                    {{available_student}}
+                    {{available_student}}<a href="{{ path('add_student', {'idSe': session.id, 'idSt': available_student.id}) }}"> Ajouter</a>
                 </li>
             {% endfor %}
         </ul>

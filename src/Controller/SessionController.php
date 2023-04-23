@@ -67,4 +67,20 @@ class SessionController extends AbstractController
             // 'plannings' => $plannings
         ]);
     }
+    
+    #[Route("/session/addStudent/{idSe}/{idSt}", name: 'add_student')]
+    #[ParamConverter("session", option:["mapping"=>["idSe"=>"id"]])]
+    #[ParamConverter("student", option:["mapping"=>["idSt"=>"id"]])]
+    public function addStudent(ManagerRegistry $doctrine, Session $session, Student $student)
+    {
+        $entityManager = $doctrine->getManager();
+
+        $session->addStudent($student);
+
+        $entityManager->persist($session);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+    }
 }
