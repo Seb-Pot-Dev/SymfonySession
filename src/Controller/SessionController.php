@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class SessionController extends AbstractController
 {
@@ -69,8 +70,8 @@ class SessionController extends AbstractController
     }
     
     #[Route("/session/addStudent/{idSe}/{idSt}", name: 'add_student')]
-    #[ParamConverter("session", option:["mapping"=>["idSe"=>"id"]])]
-    #[ParamConverter("student", option:["mapping"=>["idSt"=>"id"]])]
+    #[ParamConverter("session", options:["mapping"=>["idSe"=>"id"]])]
+    #[ParamConverter("student", options:["mapping"=>["idSt"=>"id"]])]
     public function addStudent(ManagerRegistry $doctrine, Session $session, Student $student)
     {
         $entityManager = $doctrine->getManager();
