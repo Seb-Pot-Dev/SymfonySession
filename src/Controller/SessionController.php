@@ -84,6 +84,8 @@ class SessionController extends AbstractController
 
         return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
     }
+
+    // Pour supprimer un étudiant de la session et le rendre disponible
     #[Route("/session/removeStudent/{idSe}/{idSt}", name: 'remove_student')]
     #[ParamConverter("session", options:["mapping"=>["idSe"=>"id"]])]
     #[ParamConverter("student", options:["mapping"=>["idSt"=>"id"]])]
