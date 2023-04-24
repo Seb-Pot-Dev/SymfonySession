@@ -32,7 +32,8 @@
         <ul>
             {% for current_student in session.students %}
                 <li>
-                    {{ current_student}}
+                    {{ current_student}}<a href="{{ path('remove_student', {'idSe': session.id, 'idSt': current_student.id}) }}"> Supprimer</a>
+
                 </li>
             {% endfor %}
         </ul>

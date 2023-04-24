@@ -84,4 +84,19 @@ class SessionController extends AbstractController
 
         return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
     }
+    #[Route("/session/removeStudent/{idSe}/{idSt}", name: 'remove_student')]
+    #[ParamConverter("session", options:["mapping"=>["idSe"=>"id"]])]
+    #[ParamConverter("student", options:["mapping"=>["idSt"=>"id"]])]
+    public function removeStudent(ManagerRegistry $doctrine, Session $session, Student $student)
+    {
+        $entityManager = $doctrine->getManager();
+
+        $session->removeStudent($student);
+
+        $entityManager->persist($session);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+    }
 }
