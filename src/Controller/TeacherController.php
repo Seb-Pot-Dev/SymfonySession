@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Teacher;
 use App\Form\TeacherFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,5 +47,19 @@ class TeacherController extends AbstractController
             //Pour créer le formulaire dans la view
             'formAddTeacher'=>$form->createView()
         ]);
+    }
+
+    #[Route('/teacher/remove/{id}', name: 'remove_teacher')]
+    public function remove(EntityManagerInterface $entityManager, Teacher $teacher = null): Response
+    {
+        if($teacher){
+            $entityManager->remove($teacher);
+            $entityManager->flush();
+        
+            return $this->redirectToRoute('app_teacher');
+        }
+        else{
+            return $this->redirectToRoute('app_teacher');
+        }
     }
 }

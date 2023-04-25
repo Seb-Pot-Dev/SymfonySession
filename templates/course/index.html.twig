@@ -6,9 +6,15 @@
 <h2>Ajouter une formation</h2>
 {{ form (formAddCourse)}}
 <h1>Liste des formations</h1>
-{% for course in courses %}
-    <a href="{{ path('show_course', {'id': course.id}) }}">{{course.name}}</a><br>
-{% endfor %}
+{% if courses >= 1 %}
+    
+    {% for course in courses %}
+    <a href="{{ path('show_course', {'id': course.id}) }}">{{course.name}}</a>
+    <a href="{{ path('remove_course', {'id':course.id}) }}">suppr</a><br>
 
+    {% endfor %}
+{% else %}
+    <p>Aucune formations enregistrées.</p>
+{% endif %}
 
 {% endblock %}

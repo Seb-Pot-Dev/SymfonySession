@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Module;
 use App\Form\ModuleFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,5 +58,19 @@ class ModuleController extends AbstractController
             'controller_name' => 'ModuleController',
             'module' => $module
         ]);
+    }
+
+    #[Route('/module/remove/{id}', name: 'remove_module')]
+    public function remove(EntityManagerInterface $entityManager, Module $module = null): Response
+    {
+        if($module){
+            $entityManager->remove($module);
+            $entityManager->flush();
+        
+            return $this->redirectToRoute('app_module');
+        }
+        else{
+            return $this->redirectToRoute('app_module');
+        }
     }
 }

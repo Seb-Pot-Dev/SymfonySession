@@ -6,9 +6,16 @@
 <h2>Ajouter un prof</h2>
     {{ form(formAddTeacher)}}
 <h1>Liste des profs </h1>
-    <ul>
-        {% for teacher in teachers %}
-            <li>{{teacher}}</li>
-        {% endfor %}
-    </ul>
+{% if teachers|length >= 1 %}
+    
+<ul>
+    {% for teacher in teachers %}
+    <li>{{teacher}}</li>
+    <a href="{{ path('remove_teacher', {'id':teacher.id}) }}">suppr</a>
+    {% endfor %}
+
+</ul>
+{% else %}
+<p>Aucun professeurs enregistrés.</p>
+{% endif %}
 {% endblock %}

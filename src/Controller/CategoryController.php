@@ -5,6 +5,7 @@ namespace App\Controller;
 use doctrine;
 use App\Entity\Category;
 use App\Form\CategoryFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,6 +50,19 @@ class CategoryController extends AbstractController
         ]);
     }
 
+    #[Route('/category/remove/{id}', name: 'remove_category')]
+    public function remove(EntityManagerInterface $entityManager, Category $category = null): Response
+    {
+        if($category){
+            $entityManager->remove($category);
+            $entityManager->flush();
+        
+            return $this->redirectToRoute('app_category');
+        }
+        else{
+            return $this->redirectToRoute('app_category');
+        }
+    }
     // #[Route('/category', name: 'add_category')]
     // //Doctrine pour intéragir avec la BDD
     // //Category pour dire quel type d'élément on ajoute en BDD

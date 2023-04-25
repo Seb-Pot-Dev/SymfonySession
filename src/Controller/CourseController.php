@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Course;
 use App\Form\CourseFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,6 +52,20 @@ class CourseController extends AbstractController
 
         ]);
 
+    }
+
+    #[Route('/course/remove/{id}', name: 'remove_course')]
+    public function remove(EntityManagerInterface $entityManager, Course $course = null): Response
+    {
+        if($course){
+            $entityManager->remove($course);
+            $entityManager->flush();
+        
+            return $this->redirectToRoute('app_course');
+        }
+        else{
+            return $this->redirectToRoute('app_course');
+        }
     }
 
     #[Route('/course/{id}', name: 'show_course')]

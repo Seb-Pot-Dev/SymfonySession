@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Student;
 use App\Form\StudentFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,5 +49,18 @@ class StudentController extends AbstractController
             'formAddStudent' => $form->createView()
 
         ]);
+    }
+    #[Route('/student/remove/{id}', name: 'remove_student')]
+    public function remove(EntityManagerInterface $entityManager, Student $student = null): Response
+    {
+        if($student){
+            $entityManager->remove($student);
+            $entityManager->flush();
+        
+            return $this->redirectToRoute('app_student');
+        }
+        else{
+            return $this->redirectToRoute('app_student');
+        }
     }
 }

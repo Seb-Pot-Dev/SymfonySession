@@ -14,7 +14,7 @@
         <li class="session-detail-items">Nombre de plannings : {{session.nbPlannings}} plannings </li>        
     </ul>
     <br>
-    
+
     <h3>Plannings de la session</h3>
     {% if session.plannings|length >= 1 %}
         <ul>
@@ -27,11 +27,12 @@
             {% endfor %}
         </ul>
         {% else %}
-        <p>Pas encore de plannings ajoutés à cette session</p>
+        <p>Il n'y a pas de plannings ajoutés à cette session.</p>
         {% endif %}
     <br>
 
     <h4>Modules disponibles</h4>
+    {% if available_modules|length >= 1 %}
         <ul>
             {% for module in available_modules %}
                 <li>
@@ -47,21 +48,30 @@
                 </li>
             {% endfor %}
         </ul>
+        {% else %}
+        <p>Pas de modules disponibles.</p>
+        {% endif %}
         <a href="{{ path('app_module') }}">Créer un nouveau module</a>
     
     <h3>Inscrits a la session:</h3>
-        <ul>
-            {% for current_student in session.students %}
-                <li>
-                    {{ current_student}}
-                    <a href="{{ path('remove_student', {'idSe': session.id, 'idSt': current_student.id}) }}">
-                    Supprimer
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
+    {% if session.students|length >= 1 %}
+        
+    <ul>
+        {% for current_student in session.students %}
+        <li>
+            {{ current_student}}
+            <a href="{{ path('remove_student', {'idSe': session.id, 'idSt': current_student.id}) }}">
+                Supprimer
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Il n'y a pas d'étudiants inscrits à la session.</p>
+    {% endif %}
     <br>
     <h4>Étudiants disponibles</h4>
+    {% if available_students|length >= 1 %}
         <ul>
             {% for available_student in available_students %}
                 <li>
@@ -72,6 +82,9 @@
                 </li>
             {% endfor %}
         </ul>
+        {% else %}
+        <p>Il n'y aucun étudiant disponible. </p>
+        {% endif %}
         <a href="{{ path('app_student') }}">
         Créer un nouvel étudiant
         </a>

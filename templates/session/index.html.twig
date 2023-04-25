@@ -6,6 +6,8 @@
 <h2>Ajouter une session</h2>
     {{ form(formAddSession)}}
 <h1>Toutes les sessions</h1>
+{% if sessions|length >= 1 %}
+    
     {% for session in sessions %}
         <a href="{{ path('show_session', {'id': session.id}) }}">
             {# <table>
@@ -37,4 +39,11 @@
 
         <br>
     {% endfor %}
+
+    {% else %}
+    
+    <p>Aucune sessions enregistrées.</p>
+
+    {% endif %}
+
 {% endblock %}

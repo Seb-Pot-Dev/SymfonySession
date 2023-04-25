@@ -6,9 +6,15 @@
 <h2>Ajouter un étudiant </h2>
 {{ form(formAddStudent)}}
 <h1>Liste des étudiants </h1>
+{% if students|length >= 1 %}
+    
 <ul>
     {% for student in students %}
     <li>{{student}}</li>
+    <a href="{{ path('remove_student', {'id':student.id}) }}">suppr</a>
     {% endfor %}
 </ul>
+{% else %}
+<p>Aucun étudiants enregistrés.</p>
+{% endif %}
 {% endblock %}
