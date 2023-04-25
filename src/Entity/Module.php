@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ModuleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ModuleRepository::class)]
@@ -21,6 +23,14 @@ class Module
 
     #[ORM\ManyToOne(inversedBy: 'modules')]
     private ?Category $category = null;
+
+    #[ORM\OneToMany(mappedBy: 'module', targetEntity: Planning::class, orphanRemoval: true)]
+    private Collection $plannings;
+
+    public function __construct()
+    {
+        $this->plannings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -64,5 +74,35 @@ class Module
     }
     public function __toString(){
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, Planning>
+     */
+    public function getPlannings(): Collection
+    {
+        return $this->plannings;
+    }
+
+    public function addPlanning(Planning $planning): self
+    {
+        if (!$this->plannings->contains($planning)) {
+            $this->plannings->add($planning);
+            $planning->setModule($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlanning(Planning $planning): self
+    {
+        if ($this->plannings->removeElement($planning)) {
+            // set the owning side to null (unless already changed)
+            if ($planning->getModule() === $this) {
+                $planning->setModule(null);
+            }
+        }
+
+        return $this;
     }
 }

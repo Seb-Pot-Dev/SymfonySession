@@ -47,7 +47,7 @@ class SessionRepository extends ServiceEntityRepository
         $qb = $sub;
         // sélectrionner tous les stagiaires d'une session dotn l'id est passé en paramètre
         $qb->select('s')
-            ->from('app\entity\Student', 's')
+            ->from('App\Entity\Student', 's')
             ->leftJoin('s.sessions', 'se')
             ->where('se.id = :id');
         
@@ -55,7 +55,7 @@ class SessionRepository extends ServiceEntityRepository
         // sélectionner tous les stagiaires qui ne SONT PAS (NOT IN) dans le résultat précédent
         // On obtient donc les stagiaires non inscrits pour une session définie
         $sub->select('st')
-            ->from('app\entity\Student', 'st')
+            ->from('App\Entity\Student', 'st')
             ->where($sub->expr()->NotIn('st.id', $qb->getDQL()))
             //requête paramétrée
             ->setParameter('id', $session_id)
@@ -72,18 +72,24 @@ class SessionRepository extends ServiceEntityRepository
         $sub = $em->createQueryBuilder();
 
         $qb = $sub;
-        // sélectionner tous les modules d'une session dont l'id est passé en paramètre
-        $qb->select('p')
-            ->from('app\entity\planning', 'p')
-            ->leftJoin('p.session', 's')
-            ->leftJoin('p.module', 'm')
+        // sélectionner tous les planning dont l'id de session est passé en paramètre
+        // $qb->select('p')
+        //     ->from('app\entity\planning', 'p')
+        //     ->leftJoin('p.session', 's')
+        //     ->leftJoin('p.module', 'm')
+        //     ->where('p.session = :id');
+
+        // sélectionner tous les modules dont l'id est présent dans les plannings de la session
+        $qb->select('m')
+            ->from('App\Entity\Module', 'm')
+            ->leftJoin('m.plannings', 'p')
             ->where('p.session = :id');
         
         $sub = $em->createQueryBuilder();
         // sélectionner tous les modules qui ne SONT PAS (NOT IN) dans le résultat précédent
         // On obtient donc les modules non programmés pour une session définie
         $sub->select('mo')
-            ->from('app\entity\Module', 'mo')
+            ->from('App\Entity\Module', 'mo')
             ->where($sub->expr()->NotIn('mo.id', $qb->getDQL()))
             //requête paramétrée
             ->setParameter('id', $session_id)

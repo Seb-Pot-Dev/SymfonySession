@@ -21,7 +21,7 @@ class Planning
     #[ORM\JoinColumn(nullable: false)]
     private ?Session $session = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'plannings')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Module $module = null;
 
@@ -55,6 +55,11 @@ class Planning
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->module.", durée : ".$this->nbDay." jours";
+    }
+
     public function getModule(): ?Module
     {
         return $this->module;
@@ -65,9 +70,5 @@ class Planning
         $this->module = $module;
 
         return $this;
-    }
-    public function __toString()
-    {
-        return $this->module.", durée : ".$this->nbDay." jours";
     }
 }

@@ -41,12 +41,6 @@ class Session
     #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'sessions')]
     private Collection $students;
 
-    //durée total en j
-    private ?int $totalDuration = null;
-    //nb place libres
-    private ?int $AvailableNbPlace = null;
-    //nb de plannings
-    private ?int $nbPlannings = null;
 
     public function __construct()
     {
@@ -95,6 +89,12 @@ class Session
         $this->dateEnd = $dateEnd;
 
         return $this;
+    }
+    public function dateEndByPlanning()
+    {
+        $totalDuration=$this->getTotalDuration;
+        $dateEndByPlanning= date_add($this->dateStart, date_interval_create_from_date_string("$totalDuration days"));
+        return $dateEndByPlanning;
     }
 
     public function getNbPlace(): ?int
@@ -191,18 +191,18 @@ class Session
     //Pour compter le nombre de jours total d'une session en adition la durée des plannings
     public function getTotalDuration()
     {
-        $i=0;
+        $totalDuration=0;
 
         foreach($this->plannings as $planning)
         {
-            $i+=$planning->getNbDay();
+            $totalDuration+=$planning->getNbDay();
         }
 
-        return $i;
+        return $totalDuration;
     }
 
     //Pour compter le nombre de places restantes
-    public function GetAvailableNbPlace()
+    public function getAvailableNbPlace()
     {
         $nbStudent = count($this->students);
         return $this->nbPlace - $nbStudent;
@@ -212,7 +212,7 @@ class Session
     public function getNbPlannings()
     {
         $nbPlannings = count($this->plannings);
-        return $this->nbPlannings;
+        return $nbPlannings;
     }
     
     public function __toString()
