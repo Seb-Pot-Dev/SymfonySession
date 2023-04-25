@@ -106,27 +106,37 @@ class SessionController extends AbstractController
     #[Route("/session/addPlanning/{idSe}/{idMo}", name: 'add_planning')]
     #[ParamConverter("session", options:["mapping"=>["idSe"=>"id"]])]
     #[ParamConverter("module", options:["mapping"=>["idMo"=>"id"]])]
-    public function addPlanning(ManagerRegistry $doctrine, Session $session, Module $module)
+    public function addPlanning(Request $request, ManagerRegistry $doctrine, Session $session, Module $module)
     {
         //défini un nouveau planning 
         $newPlanning= new Planning();
 
-        if(isset($_POST["nbDay"]))
-        {
-            $nbJours = filter_input(INPUT_POST, "nbDay", FILTER_SANITIZE_NUMBER_INT);
-        }
+        // if(isset($_POST["nbDay"]))
+        // {
+            //     $nbJours = filter_input(INPUT_POST, "nbDay", FILTER_SANITIZE_NUMBER_INT);
+            // }
+            
+        //pour récupérer le nb de jour du form 
+        $nbJours=$request->request->get('nbDay');
+
+        //défini le nb de jour
         $newPlanning->setNbDay($nbJours);
+
+        //défini le module concerné
         $newPlanning->setModule($module);
         
+        //défini le manager de doctrine
         $entityManager = $doctrine->getManager();
         
+        //ajoute le nouveau planning à la session concerné
         $session->addPlanning($newPlanning);
         
+        //dire à doctrine que j'aimerais possiblement ajouter le planning créé dans la BDD
         $entityManager->persist($newPlanning);
-        //$entityManager->persist($session);
 
+        //Ajoute effectivement le produit en bdd
         $entityManager->flush();
-
+        
         return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
     }
 

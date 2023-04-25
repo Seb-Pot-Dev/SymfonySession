@@ -8,7 +8,7 @@
     <ul class="session-detail-container">
         <li class="session-detail-items">Durée : {{session.totalDuration}} jours</li>
         <li class="session-detail-items">Prof référent : {{session.teacher}}</li>
-        <li class="session-detail-items">Débute le {{session.dateStart| date("m/d/Y")}} et fini le {{session.dateEnd|date("m/d/Y")}}</li>
+        <li class="session-detail-items">Débute le {{ session.dateStart|date("d/m/Y") }} et finit le {{ session.dateStart|date_modify('+' ~ session.totalDuration ~ 'day')|date("d/m/Y") }}</li>        
         <li class="session-detail-items">Nombre de places maximum: {{session.nbPlace}} places </li>
         <li class="session-detail-items">Nombre de places disponibles : {{session.availableNbPlace}} places </li>        
         <li class="session-detail-items">Nombre de plannings : {{session.nbPlannings}} plannings </li>        
@@ -32,7 +32,7 @@
                     <form action="{{ path('add_planning', {'idSe': session.id, 'idMo': module.id}) }}" method="post">
 
                         <label for="nbDay">Nombre de jours (1-365):</label>
-                        <input type="number" name="nbDay" min="1" max="365">
+                        <input type="number" name="nbDay" min="1" max="365" value="1">
 
                         <button type="submit" name="submit">Ajouter</button>
                     </form>
