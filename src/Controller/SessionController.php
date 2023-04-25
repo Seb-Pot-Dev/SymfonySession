@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Module;
 use App\Entity\Session;
 use App\Entity\Student;
+use App\Entity\Planning;
 use App\Form\SessionFormType;
 use App\Repository\SessionRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -49,25 +50,7 @@ class SessionController extends AbstractController
             'formAddSession'=>$form->createView()
         ]);
     }
-    #[Route('/session/{id}', name: 'show_session')]
-    public function show(Session $session, SessionRepository $sr): Response
-    //On appel l'objet session dont l'id est passé en parametre par la route
-    {
-        //récupère l'id de la session
-        $session_id=$session->getId();
-        //récupère tous les étudiants NON-INSCRITS a cette session
-        $NotScheduledStudents = $sr->findNotScheduledStudents($session_id);
-        $NotScheduledModules = $sr->findNotScheduledModules($session_id);
-
-        //renvoie la vue et associe des données
-        return $this->render('session/show.html.twig', [
-            'session' => $session,
-            'available_students' => $NotScheduledStudents,
-            'available_modules'=> $NotScheduledModules
-
-            // 'plannings' => $plannings
-        ]);
-    }
+    
     
     #[Route("/session/addStudent/{idSe}/{idSt}", name: 'add_student')]
     #[ParamConverter("session", options:["mapping"=>["idSe"=>"id"]])]
@@ -100,5 +83,70 @@ class SessionController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+    }
+    
+    // Pour supprimer un planning de la session et rendre le module disponible
+    #[Route("/session/removePlanning/{idSe}/{idPl}", name: 'remove_planning')]
+    #[ParamConverter("session", options:["mapping"=>["idSe"=>"id"]])]
+    #[ParamConverter("planning", options:["mapping"=>["idPl"=>"id"]])]
+    public function removePlanning(ManagerRegistry $doctrine, Session $session, Planning $planning)
+    {
+        $entityManager = $doctrine->getManager();
+
+        $session->removePlanning($planning);
+
+        $entityManager->persist($session);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+    }
+
+    // Pour ajouter un module à la session et le transformer en planning
+    #[Route("/session/addPlanning/{idSe}/{idMo}", name: 'add_planning')]
+    #[ParamConverter("session", options:["mapping"=>["idSe"=>"id"]])]
+    #[ParamConverter("module", options:["mapping"=>["idMo"=>"id"]])]
+    public function addPlanning(ManagerRegistry $doctrine, Session $session, Module $module)
+    {
+        //défini un nouveau planning 
+        $newPlanning= new Planning();
+
+        if(isset($_POST["nbDay"]))
+        {
+            $nbJours = filter_input(INPUT_POST, "nbDay", FILTER_SANITIZE_NUMBER_INT);
+        }
+        $newPlanning->setNbDay($nbJours);
+        $newPlanning->setModule($module);
+        
+        $entityManager = $doctrine->getManager();
+        
+        $session->addPlanning($newPlanning);
+        
+        $entityManager->persist($newPlanning);
+        //$entityManager->persist($session);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+    }
+
+    #[Route('/session/{id}', name: 'show_session')]
+    public function show(Session $session, SessionRepository $sr): Response
+    //On appel l'objet session dont l'id est passé en parametre par la route
+    {
+        //récupère l'id de la session
+        $session_id=$session->getId();
+        //récupère tous les étudiants NON-INSCRITS a cette session
+        $NotScheduledStudents = $sr->findNotScheduledStudents($session_id);
+        $NotScheduledModules = $sr->findNotScheduledModules($session_id);
+
+        //renvoie la vue et associe des données
+        return $this->render('session/show.html.twig', [
+            'session' => $session,
+            'available_students' => $NotScheduledStudents,
+            'available_modules'=> $NotScheduledModules
+
+            // 'plannings' => $plannings
+        ]);
     }
 }

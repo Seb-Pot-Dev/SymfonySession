@@ -45,6 +45,8 @@ class Session
     private ?int $totalDuration = null;
     //nb place libres
     private ?int $AvailableNbPlace = null;
+    //nb de plannings
+    private ?int $nbPlannings = null;
 
     public function __construct()
     {
@@ -205,6 +207,14 @@ class Session
         $nbStudent = count($this->students);
         return $this->nbPlace - $nbStudent;
     }
+    
+    //Pour compter le nombre de plannings disponibles
+    public function getNbPlannings()
+    {
+        $nbPlannings = count($this->plannings);
+        return $this->nbPlannings;
+    }
+    
     public function __toString()
     {
         return $this->name;

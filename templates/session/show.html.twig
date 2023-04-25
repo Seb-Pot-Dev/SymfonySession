@@ -11,19 +11,33 @@
         <li class="session-detail-items">Débute le {{session.dateStart| date("m/d/Y")}} et fini le {{session.dateEnd|date("m/d/Y")}}</li>
         <li class="session-detail-items">Nombre de places maximum: {{session.nbPlace}} places </li>
         <li class="session-detail-items">Nombre de places disponibles : {{session.availableNbPlace}} places </li>        
+        <li class="session-detail-items">Nombre de plannings : {{session.nbPlannings}} plannings </li>        
     </ul>
     <br>
     <h3>Plannings de la session</h3>
         <ul>
         {% for planning in session.plannings %}
-            <li>{{ planning }}</li>
+            <li>
+                {{ planning }}
+                <a href="{{ path('remove_planning', {'idSe': session.id, 'idPl': planning.id}) }}"> Supprimer</a>
+            </li>
         {% endfor %}
         </ul>
     <br>
     <h4>Modules disponibles</h4>
         <ul>
             {% for module in available_modules %}
-                <li>{{module.name}}</li>
+                <li>
+                    {{module.name}}
+                    <form action="{{ path('add_planning', {'idSe': session.id, 'idMo': module.id}) }}" method="post">
+
+                        <label for="nbDay">Nombre de jours (1-365):</label>
+                        <input type="number" name="nbDay" min="1" max="365">
+
+                        <button type="submit" name="submit">Ajouter</button>
+                    </form>
+                    {# <a href="{{ path('add_planning', {'idSe': session.id, 'idMo': module.id}) }}"> Ajouter</a> #}
+                </li>
             {% endfor %}
         </ul>
         <a href="{{ path('app_module') }}">Créer un nouveau module</a>
@@ -32,8 +46,8 @@
         <ul>
             {% for current_student in session.students %}
                 <li>
-                    {{ current_student}}<a href="{{ path('remove_student', {'idSe': session.id, 'idSt': current_student.id}) }}"> Supprimer</a>
-
+                    {{ current_student}}
+                    <a href="{{ path('remove_student', {'idSe': session.id, 'idSt': current_student.id}) }}"> Supprimer</a>
                 </li>
             {% endfor %}
         </ul>
