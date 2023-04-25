@@ -8,24 +8,46 @@
 <h1>Toutes les sessions</h1>
 {% if sessions|length >= 1 %}
     
-    {% for session in sessions %}
+<table>
+    <thead class="table">
+        <tr>
+            <th colspan="7">Liste des sessions</th>
+        </tr>
+        <tr>
+            <td>Nom</td>
+            <td>Prof</td>
+            <td>Début</td>
+            <td>Fin</td>
+            <td>Durée</td>
+            <td>Place</td>
+            <td>Dispo</td>
+            <td>Plannings</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody class="table">
+        {% for session in sessions %}
         <a href="{{ path('show_session', {'id': session.id}) }}">
-            {# <table>
-                <thead>
-                    <tr>
-                        <th colspan="7">Liste des sessions</th>
-                    </tr>
+            <tr>
+                <td>{{ session.name }}</td>
+                <td>{{ session.teacher }}</td>
+                <td>{{ session.dateStart|date("d/m/Y") }}</td>
+                <td>{{ session.dateStart|date_modify('+' ~ session.totalDuration ~ 'day')|date("d/m/Y") }}</td>
+                <td>{{ session.totalDuration }} jours</td>
+                <td>{{ session.nbPlace }}</td>
+                <td>{{ session.availableNbPlace }}</td>
+                <td>{{ session.nbPlannings }}</td>
+                <td><a class="button-delete" href="{{ path('remove_session', {'id': session.id}) }}">suppr</a></td>
+            </tr>
+        </a>
+        {% endfor %}
+    </tbody>
+</table>
 
-                </thead>
-                <tbody>
-                    
-                </tbody>
-            </table> #}
 
 
 
-
-            <ul>
+            {# <ul>
                 <li>Nom: {{session.name}}</li>
                 <li>Prof référent : {{session.teacher}}</li>
                 <li>Débute le {{ session.dateStart|date("d/m/Y") }} et finit le {{ session.dateStart|date_modify('+' ~ session.totalDuration ~ 'day')|date("d/m/Y") }}</li>        
@@ -33,13 +55,7 @@
                 <li>Nombre de places maximum: {{session.nbPlace}} places </li>
                 <li>Nombre de places disponibles : {{session.availableNbPlace}} places </li>        
                 <li>Nombre de plannings : {{session.nbPlannings}} plannings </li> 
-            </ul>
-        </a>
-        <a href="{{ path('remove_session', {'id':session.id}) }}">suppr</a>
-
-        <br>
-    {% endfor %}
-
+            </ul> #}
     {% else %}
     
     <p>Aucune sessions enregistrées.</p>
