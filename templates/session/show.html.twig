@@ -14,16 +14,23 @@
         <li class="session-detail-items">Nombre de plannings : {{session.nbPlannings}} plannings </li>        
     </ul>
     <br>
+    
     <h3>Plannings de la session</h3>
+    {% if session.plannings|length >= 1 %}
         <ul>
-        {% for planning in session.plannings %}
+                
+            {% for planning in session.plannings %}
             <li>
                 {{ planning }}
                 <a href="{{ path('remove_planning', {'idSe': session.id, 'idPl': planning.id}) }}"> Supprimer</a>
             </li>
-        {% endfor %}
+            {% endfor %}
         </ul>
+        {% else %}
+        <p>Pas encore de plannings ajoutés à cette session</p>
+        {% endif %}
     <br>
+
     <h4>Modules disponibles</h4>
         <ul>
             {% for module in available_modules %}
@@ -47,7 +54,9 @@
             {% for current_student in session.students %}
                 <li>
                     {{ current_student}}
-                    <a href="{{ path('remove_student', {'idSe': session.id, 'idSt': current_student.id}) }}"> Supprimer</a>
+                    <a href="{{ path('remove_student', {'idSe': session.id, 'idSt': current_student.id}) }}">
+                    Supprimer
+                    </a>
                 </li>
             {% endfor %}
         </ul>
@@ -56,10 +65,15 @@
         <ul>
             {% for available_student in available_students %}
                 <li>
-                    {{available_student}}<a href="{{ path('add_student', {'idSe': session.id, 'idSt': available_student.id}) }}"> Ajouter</a>
+                    {{available_student}}
+                    <a href="{{ path('add_student', {'idSe': session.id, 'idSt': available_student.id}) }}">
+                    Ajouter
+                    </a>
                 </li>
             {% endfor %}
         </ul>
-        <a href="{{ path('app_student') }}">Créer un nouvel étudiant</a>
+        <a href="{{ path('app_student') }}">
+        Créer un nouvel étudiant
+        </a>
 
 {% endblock %}

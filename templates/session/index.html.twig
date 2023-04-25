@@ -8,10 +8,33 @@
 <h1>Toutes les sessions</h1>
     {% for session in sessions %}
         <a href="{{ path('show_session', {'id': session.id}) }}">
+            {# <table>
+                <thead>
+                    <tr>
+                        <th colspan="7">Liste des sessions</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table> #}
+
+
+
+
             <ul>
                 <li>Nom: {{session.name}}</li>
+                <li>Prof référent : {{session.teacher}}</li>
+                <li>Débute le {{ session.dateStart|date("d/m/Y") }} et finit le {{ session.dateStart|date_modify('+' ~ session.totalDuration ~ 'day')|date("d/m/Y") }}</li>        
                 <li>Durée: {{session.totalDuration}} jours</li>
+                <li>Nombre de places maximum: {{session.nbPlace}} places </li>
+                <li>Nombre de places disponibles : {{session.availableNbPlace}} places </li>        
+                <li>Nombre de plannings : {{session.nbPlannings}} plannings </li> 
             </ul>
-        </a><br>
+        </a>
+        <a href="{{ path('remove_session', {'id':session.id}) }}">suppr</a>
+
+        <br>
     {% endfor %}
 {% endblock %}

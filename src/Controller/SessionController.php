@@ -8,6 +8,7 @@ use App\Entity\Student;
 use App\Entity\Planning;
 use App\Form\SessionFormType;
 use App\Repository\SessionRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,21 +52,29 @@ class SessionController extends AbstractController
         ]);
     }
     
-    
+    //Pour ajouter un étudiant disponible à la session
     #[Route("/session/addStudent/{idSe}/{idSt}", name: 'add_student')]
     #[ParamConverter("session", options:["mapping"=>["idSe"=>"id"]])]
     #[ParamConverter("student", options:["mapping"=>["idSt"=>"id"]])]
-    public function addStudent(ManagerRegistry $doctrine, Session $session, Student $student)
+    public function addStudent(ManagerRegistry $doctrine, Session $session =null, Student $student=null)
     {
-        $entityManager = $doctrine->getManager();
+        if($session && $student && $session->getAvailableNbPlace()>=1){
 
-        $session->addStudent($student);
+            
 
-        $entityManager->persist($session);
-
-        $entityManager->flush();
-
-        return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+            $entityManager = $doctrine->getManager();
+    
+            $session->addStudent($student);
+    
+            $entityManager->persist($session);
+    
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+        }
+        else{
+            return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+        }
     }
 
     // Pour supprimer un étudiant de la session et le rendre disponible
@@ -106,57 +115,81 @@ class SessionController extends AbstractController
     #[Route("/session/addPlanning/{idSe}/{idMo}", name: 'add_planning')]
     #[ParamConverter("session", options:["mapping"=>["idSe"=>"id"]])]
     #[ParamConverter("module", options:["mapping"=>["idMo"=>"id"]])]
-    public function addPlanning(Request $request, ManagerRegistry $doctrine, Session $session, Module $module)
+    public function addPlanning(Request $request, ManagerRegistry $doctrine, Session $session=null, Module $module=null)
     {
+        if($session && $module){
         //défini un nouveau planning 
         $newPlanning= new Planning();
-
-        // if(isset($_POST["nbDay"]))
-        // {
-            //     $nbJours = filter_input(INPUT_POST, "nbDay", FILTER_SANITIZE_NUMBER_INT);
-            // }
-            
+           
         //pour récupérer le nb de jour du form 
         $nbJours=$request->request->get('nbDay');
+            if($nbJours>=1 && $nbJours<=365)
+            {
+            //défini le nb de jour
+            $newPlanning->setNbDay($nbJours);
 
-        //défini le nb de jour
-        $newPlanning->setNbDay($nbJours);
+            //défini le module concerné
+            $newPlanning->setModule($module);
+            
+            //défini le manager de doctrine
+            $entityManager = $doctrine->getManager();
+            
+            //ajoute le nouveau planning à la session concerné
+            $session->addPlanning($newPlanning);
+            
+            //dire à doctrine que j'aimerais possiblement ajouter le planning créé dans la BDD
+            $entityManager->persist($newPlanning);
 
-        //défini le module concerné
-        $newPlanning->setModule($module);
-        
-        //défini le manager de doctrine
-        $entityManager = $doctrine->getManager();
-        
-        //ajoute le nouveau planning à la session concerné
-        $session->addPlanning($newPlanning);
-        
-        //dire à doctrine que j'aimerais possiblement ajouter le planning créé dans la BDD
-        $entityManager->persist($newPlanning);
-
-        //Ajoute effectivement le produit en bdd
-        $entityManager->flush();
-        
+            //Ajoute effectivement le produit en bdd
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+            }
+            else{
+            return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+            }
+        }
+        else{
         return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+        }
+}
+
+    #[Route('/session/remove/{id}', name: 'remove_session')]
+    public function remove(EntityManagerInterface $entityManager, Session $session = null): Response
+    {
+        if($session){
+            $entityManager->remove($session);
+            $entityManager->flush();
+        
+            return $this->redirectToRoute('app_session');
+        }
+        else{
+            return $this->redirectToRoute('app_session');
+        }
     }
 
     #[Route('/session/{id}', name: 'show_session')]
-    public function show(Session $session, SessionRepository $sr): Response
+    public function show(Session $session = null, SessionRepository $sr): Response
     //On appel l'objet session dont l'id est passé en parametre par la route
     {
-        //récupère l'id de la session
-        $session_id=$session->getId();
-        //récupère tous les étudiants NON-INSCRITS a cette session
-        $NotScheduledStudents = $sr->findNotScheduledStudents($session_id);
-        $NotScheduledModules = $sr->findNotScheduledModules($session_id);
-
-        //renvoie la vue et associe des données
-        return $this->render('session/show.html.twig', [
-            'session' => $session,
-            'available_students' => $NotScheduledStudents,
-            'available_modules'=> $NotScheduledModules
-
-            // 'plannings' => $plannings
-        ]);
+        //si session existe (initalisé a null)
+        if($session) {
+            //récupère l'id de la session
+            $session_id=$session->getId();
+            //récupère tous les étudiants NON-INSCRITS a cette session
+            $NotScheduledStudents = $sr->findNotScheduledStudents($session_id);
+            $NotScheduledModules = $sr->findNotScheduledModules($session_id);
+    
+            //renvoie la vue et associe des données
+            return $this->render('session/show.html.twig', [
+                'session' => $session,
+                'available_students' => $NotScheduledStudents,
+                'available_modules'=> $NotScheduledModules
+    
+                // 'plannings' => $plannings
+            ]);
+        } else {
+            return $this->redirectToRoute('app_session');
+        }
     }
 }
