@@ -4,6 +4,7 @@
     --background-color: rgb(213, 213, 213);
     --text-color1: black;
     --admin-action1: rgb(255, 0, 0);
+    --admin-action2: rgb(60, 160, 60);
   }
 *{
     margin: 0;
@@ -61,6 +62,20 @@ a{
 }
 .button-delete:hover {
   background-color: #a02a2a;
+}
+.button-add{
+    background-color: var(--admin-action2);
+    border-radius: 5px;
+    margin: 3px;
+    padding: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: auto;
+}
+.button-add:hover {
+  background-color: #0b6801;
 }
 /*---style table ---*/
 table {

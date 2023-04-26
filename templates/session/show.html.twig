@@ -14,47 +14,101 @@
         <li class="session-detail-items">Nombre de plannings : {{session.nbPlannings}} plannings </li>        
     </ul>
     <br>
-
-    <h3>Plannings de la session</h3>
     {% if session.plannings|length >= 1 %}
-        <ul>
-                
-            {% for planning in session.plannings %}
-            <li>
-                {{ planning }}
-                <a href="{{ path('remove_planning', {'idSe': session.id, 'idPl': planning.id}) }}"> Supprimer</a>
-            </li>
-            {% endfor %}
-        </ul>
+    <table>
+        <thead class="table">
+            <tr>
+                <th colspan="2"> <h3>Modules plannifiés</h3> </th>
+            </tr>
+            <tr>
+                <td>Nom</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody class="table">
+                {% for planning in session.plannings %}
+                    <tr class="clickable-row" onclick="window.location='{{ path('show_session', {'id': session.id}) }}'">
+                        <td >{{ planning }}</td>
+                        <td><a class="button-delete" href="{{ path('remove_planning', {'idSe': session.id, 'idPl': planning.id}) }}"><i class="fa-solid fa-trash-can"></i></a></td>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
         {% else %}
         <p>Il n'y a pas de plannings ajoutés à cette session.</p>
         {% endif %}
     <br>
 
-    <h4>Modules disponibles</h4>
-    {% if available_modules|length >= 1 %}
-        <ul>
-            {% for module in available_modules %}
-                <li>
-                    {{module.name}}
-                    <form action="{{ path('add_planning', {'idSe': session.id, 'idMo': module.id}) }}" method="post">
+    <table>
+        <thead class="table">
+            <tr>
+                <th><h4>Modules disponibles</h4></th>
+            </tr>
+            {% if available_modules|length >= 1 %}
+            <tr>
+                <td>Nom</td>
+            </tr>
+            {% endif %}
+        </thead>
+        <tbody class="table">
+            {% if available_modules|length >= 1 %}
+                {% for module in available_modules %}                    
+                    <tr class="clickable-row"
+                     {# onclick="window.location='{{ path('show_module', {'id': module.id}) }}'" #}
+                     >
+                        <td >{{ module.name }}
+                        
+                            <form action="{{ path('add_planning', {'idSe': session.id, 'idMo': module.id}) }}" method="post">
 
-                        <label for="nbDay">Nombre de jours (1-365):</label>
-                        <input type="number" name="nbDay" min="1" max="365" value="1">
-
-                        <button type="submit" name="submit">Ajouter</button>
-                    </form>
-                    <a href="{{ path('add_planning', {'idSe': session.id, 'idMo': module.id}) }}"> Ajouter</a>
-                </li>
-            {% endfor %}
-        </ul>
-        {% else %}
-        <p>Pas de modules disponibles.</p>
-        {% endif %}
-        <a href="{{ path('app_module') }}">Créer un nouveau module</a>
+                                <label for="nbDay">Durée (jours):</label>
+                                <input type="number" name="nbDay" min="1" max="365" value="1">
+        
+                                <button class="button-add" type="submit" name="submit"><i class="fa-solid fa-plus"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                    <tr><td><a class="button-add" href="{{ path('app_module') }}">Créer un nouveau module</a></td></tr>        
+            {% else %}
+                <tr><td>Pas de modules disponibles.</td></tr>
+                <tr><td><a class="button-add" href="{{ path('app_module') }}">Créer un nouveau module</a></td></tr>        
+            {% endif %}
+        </tbody>
+    </table>
     
-    <h3>Inscrits a la session:</h3>
-    {% if session.students|length >= 1 %}
+    
+    <table>
+        <thead class="table">
+            <tr>
+                <th colspan="2"><h3>Inscrits a la session:</h3></th>
+            </tr>
+            {% if session.students|length >= 1 %}
+
+            <tr>
+                <td>Nom</td>
+                <td>Action</td>
+            </tr>
+            {% endif %}
+        </thead>
+
+        <tbody class="table">
+            {% if session.students|length >= 1 %}
+                {% for student in session.students %}
+                    <tr class="clickable-row" onclick="window.location='{{ path('show_session', {'id': session.id}) }}'">
+                        <td >{{ student }}</td>
+                        <td><a class="button-delete" href="{{ path('remove_session_student', {'idSe': session.id, 'idSt': student.id}) }}"><i class="fa-solid fa-trash-can"></i></a></td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                    <tr>
+                        <td> Il n'y a pas d'étudiant inscrits à cette session.<br>Ajoutez un étudiant disponible ou créez en un.</td>
+                    </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    <br>
+
+    {# {% if session.students|length >= 1 %}
         
     <ul>
         {% for current_student in session.students %}
@@ -69,24 +123,37 @@
     {% else %}
     <p>Il n'y a pas d'étudiants inscrits à la session.</p>
     {% endif %}
-    <br>
-    <h4>Étudiants disponibles</h4>
-    {% if available_students|length >= 1 %}
-        <ul>
-            {% for available_student in available_students %}
-                <li>
-                    {{available_student}}
-                    <a href="{{ path('add_student', {'idSe': session.id, 'idSt': available_student.id}) }}">
-                    Ajouter
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-        {% else %}
-        <p>Il n'y aucun étudiant disponible. </p>
-        {% endif %}
-        <a href="{{ path('app_student') }}">
-        Créer un nouvel étudiant
-        </a>
+    <br> #}
 
+    
+    <table>
+        <thead class="table">
+            <tr>
+                <th colspan="2"><h4>Étudiants disponibles</h4></th>
+            </tr>
+            {% if available_students|length >= 1 %}
+            <tr>
+                <td>Nom</td>
+                <td>Action</td>
+            </tr>
+            {% endif %}
+        </thead>
+        <tbody class="table">
+            {% if available_students|length >= 1 %}
+                {% for student in available_students %}                    
+                    <tr class="clickable-row"
+                     {# onclick="window.location='{{ path('show_student', {'id': student.id}) }}'" #}
+                     >
+                        <td >{{ student }}</td>
+                        <td>
+                        <a class="button-add" href="{{ path('add_student', {'idSe': session.id, 'idSt': student.id}) }}"><i class="fa-solid fa-plus"></i></a></td></tr>
+                    </tr>
+                    {% endfor %}
+                    <tr><td><a class="button-add" href="{{ path('app_student') }}">Créer un nouvel étudiant</a></td></tr>
+            {% else %}
+                <tr><td>Pas d'étudiant disponibles.</td></tr>
+                <tr><td><a class="button-add" href="{{ path('app_student') }}">Créer un nouvel étudiant</a></td></tr>             
+        </tbody>
+    </table>
+            {% endif %}
 {% endblock %}
