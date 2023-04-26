@@ -11,7 +11,7 @@
 <table>
     <thead class="table">
         <tr>
-            <th colspan="7">Liste des sessions</th>
+            <th colspan="9">Liste des sessions</th>
         </tr>
         <tr>
             <td>Nom</td>
@@ -27,9 +27,8 @@
     </thead>
     <tbody class="table">
         {% for session in sessions %}
-        <a href="{{ path('show_session', {'id': session.id}) }}">
-            <tr>
-                <td>{{ session.name }}</td>
+            <tr class="clickable-row" onclick="window.location='{{ path('show_session', {'id': session.id}) }}'">
+                <td >{{ session.name }}</td>
                 <td>{{ session.teacher }}</td>
                 <td>{{ session.dateStart|date("d/m/Y") }}</td>
                 <td>{{ session.dateStart|date_modify('+' ~ session.totalDuration ~ 'day')|date("d/m/Y") }}</td>
@@ -39,7 +38,6 @@
                 <td>{{ session.nbPlannings }}</td>
                 <td><a class="button-delete" href="{{ path('remove_session', {'id': session.id}) }}">suppr</a></td>
             </tr>
-        </a>
         {% endfor %}
     </tbody>
 </table>

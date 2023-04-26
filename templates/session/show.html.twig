@@ -6,7 +6,7 @@
 
 <h1>Détail de la session: "{{ session.name }}"</h1>
     <ul class="session-detail-container">
-        <li class="session-detail-items">Durée : {{session.totalDuration}} jours</li>
+        {# <li class="session-detail-items">Durée : {{session.totalDuration}} jours</li> #}
         <li class="session-detail-items">Prof référent : {{session.teacher}}</li>
         <li class="session-detail-items">Débute le {{ session.dateStart|date("d/m/Y") }} et finit le {{ session.dateStart|date_modify('+' ~ session.totalDuration ~ 'day')|date("d/m/Y") }}</li>        
         <li class="session-detail-items">Nombre de places maximum: {{session.nbPlace}} places </li>
@@ -44,7 +44,7 @@
 
                         <button type="submit" name="submit">Ajouter</button>
                     </form>
-                    {# <a href="{{ path('add_planning', {'idSe': session.id, 'idMo': module.id}) }}"> Ajouter</a> #}
+                    <a href="{{ path('add_planning', {'idSe': session.id, 'idMo': module.id}) }}"> Ajouter</a>
                 </li>
             {% endfor %}
         </ul>
@@ -60,7 +60,7 @@
         {% for current_student in session.students %}
         <li>
             {{ current_student}}
-            <a href="{{ path('remove_student', {'idSe': session.id, 'idSt': current_student.id}) }}">
+            <a href="{{ path('remove_session_student', {'idSe': session.id, 'idSt': current_student.id}) }}">
                 Supprimer
             </a>
         </li>
