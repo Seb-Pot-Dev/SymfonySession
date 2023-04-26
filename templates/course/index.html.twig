@@ -7,12 +7,27 @@
 {{ form (formAddCourse)}}
 <h1>Liste des formations</h1>
 {% if courses >= 1 %}
-    
-    {% for course in courses %}
-    <a href="{{ path('show_course', {'id': course.id}) }}">{{course.name}}</a>
-    <a href="{{ path('remove_course', {'id':course.id}) }}">suppr</a><br>
+<table>
+    <thead class="table">
+        <tr>
+            <th colspan="2">Liste des formations</th>
+        </tr>
+        <tr>
+            <td>Nom</td>
+            <td>Action</td>
 
-    {% endfor %}
+        </tr>
+    </thead>
+    <tbody class="table">
+        {% for course in courses %}
+            <tr class="clickable-row" onclick="window.location='{{ path('show_course', {'id': course.id}) }}'">
+                <td >{{ course.name }}</td>
+                <td><a class="button-delete" href="{{ path('remove_course', {'id': course.id}) }}">suppr</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% else %}
     <p>Aucune formations enregistrées.</p>
 {% endif %}

@@ -4,13 +4,29 @@
 
 {% block body %}
 <h1>Liste des utilisateurs autorisés de l'application SESSION:</h1>
-{% if condition %}
-    
-<ul>
-    {% for user in users %}
-    <li>{{user.pseudo}}</li>
-    {% endfor %}
-</ul>
+{% if users|length >= 1 %}
+<table>
+    <thead class="table">
+        <tr>
+            <th colspan="2">Liste des profs</th>
+        </tr>
+        <tr>
+            <td>Nom</td>
+            <td>Action</td>
+
+        </tr>
+    </thead>
+    <tbody class="table">
+        {% for user in users %}
+            <tr class="clickable-row" 
+            {# onclick="window.location='{{ path('show_user', {'id': course.id}) }}'" #}
+            >
+                {# <td >{{ user.pseudo }}</td> #}
+                <td><a class="button-delete" href="{{ path('remove_user', {'id': user.id}) }}">suppr</a></td>
+            </tr>
+            {% endfor %}
+    </tbody>
+</table>
 {% else %}
 <p>Aucun utilisateur autorisé pour le moment.</p>
 {% endif %}

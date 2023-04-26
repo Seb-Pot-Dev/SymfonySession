@@ -7,14 +7,29 @@
     {{ form(formAddTeacher)}}
 <h1>Liste des profs </h1>
 {% if teachers|length >= 1 %}
-    
-<ul>
-    {% for teacher in teachers %}
-    <li>{{teacher}}</li>
-    <a href="{{ path('remove_teacher', {'id':teacher.id}) }}">suppr</a>
-    {% endfor %}
+<table>
+    <thead class="table">
+        <tr>
+            <th colspan="2">Liste des profs</th>
+        </tr>
+        <tr>
+            <td>Nom</td>
+            <td>Action</td>
 
-</ul>
+        </tr>
+    </thead>
+    <tbody class="table">
+        {% for teacher in teachers %}
+            <tr class="clickable-row" 
+            {# onclick="window.location='{{ path('show_teacher', {'id': course.id}) }}'" #}
+            >
+                <td >{{ teacher }}</td>
+                <td><a class="button-delete" href="{{ path('remove_teacher', {'id': teacher.id}) }}">suppr</a></td>
+            </tr>
+            {% endfor %}
+    </tbody>
+</table>
+
 {% else %}
 <p>Aucun professeurs enregistrés.</p>
 {% endif %}

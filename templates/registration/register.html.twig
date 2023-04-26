@@ -9,7 +9,7 @@
     {% endfor %}
 
 <h1>Ajouter un nouvel utilisateur</h1>
-
+<div class="registration-form-class">
         {{ form_start(registrationForm) }}
             {{ form_row(registrationForm.email) }}
             {{ form_row(registrationForm.pseudo) }}
@@ -21,14 +21,33 @@
 
             <button type="submit" class="btn">Ajouter</button>
         {{ form_end(registrationForm) }}
-
+</div>
 <h1>Liste des utilisateurs autorisés de l'application SESSION:</h1>
+{% if users|length >= 1 %}
+<table>
+    <thead class="table">
+        <tr>
+            <th colspan="2">Liste des profs</th>
+        </tr>
+        <tr>
+            <td>Nom</td>
+            <td>Action</td>
 
-    <ul>
+        </tr>
+    </thead>
+    <tbody class="table">
         {% for user in users %}
-            <li>
-                {{user.pseudo}}
-            </li>
-        {% endfor %}
-    </ul>
+            <tr class="clickable-row" 
+            {# onclick="window.location='{{ path('show_user', {'id': course.id}) }}'" #}
+            >
+                <td >{{ user.pseudo }}</td>
+                {# <td><a class="button-delete" href="{{ path('remove_user', {'id': user.id}) }}">suppr</a></td> #}
+            </tr>
+            {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Aucun utilisateur autorisé pour le moment.</p>
+{% endif %}
+
 {% endblock %}

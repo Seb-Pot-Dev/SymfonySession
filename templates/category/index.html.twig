@@ -9,11 +9,25 @@
 <h1>Liste des catégories</h1>
 {% if categories|length >= 1 %}
     
-    {% for category in categories %}
-    <a href="{{ path('show_category', {'id': category.id}) }}">{{ category.name }}</a>
-    <a href="{{ path('remove_category', {'id':category.id}) }}">suppr</a><br>
-
-    {% endfor %}
+<table>
+    <thead class="table">
+        <tr>
+            <th colspan="2">Liste des catégories</th>
+        </tr>
+        <tr>
+            <td>Nom</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody class="table">
+            {% for category in categories %}
+                <tr class="clickable-row" onclick="window.location='{{ path('show_category', {'id': category.id}) }}'">
+                    <td >{{ category.name }}</td>
+                    <td><a class="button-delete" href="{{ path('remove_category', {'id': category.id}) }}">suppr</a></td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
 {% else %}
     <p>Aucune catégories existantes.</p>
 {% endif %}

@@ -7,13 +7,28 @@
 {{ form(formAddStudent)}}
 <h1>Liste des étudiants </h1>
 {% if students|length >= 1 %}
-    
-<ul>
-    {% for student in students %}
-    <li>{{student}}</li>
-    <a href="{{ path('remove_student', {'id':student.id}) }}">suppr</a>
-    {% endfor %}
-</ul>
+<table>
+    <thead class="table">
+        <tr>
+            <th colspan="2">Liste des étudiants</th>
+        </tr>
+        <tr>
+            <td>Nom</td>
+            <td>Action</td>
+
+        </tr>
+    </thead>
+    <tbody class="table">
+        {% for student in students %}
+            <tr class="clickable-row" 
+            {# onclick="window.location='{{ path('show_student', {'id': student.id}) }}'" #}
+            >
+                <td >{{ student }}</td>
+                <td><a class="button-delete" href="{{ path('remove_student', {'id': student.id}) }}">suppr</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% else %}
 <p>Aucun étudiants enregistrés.</p>
 {% endif %}

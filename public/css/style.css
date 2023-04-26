@@ -162,3 +162,430 @@ table {
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
 }
 /*--- FIN style session_form---*/
+/*---style category_form ---*/
+#category_form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+#category_form div {
+  margin: 10px;
+}
+
+#category_form label {
+  display: block;
+  font-weight: bold;
+}
+
+#category_form input[type="text"],
+#category_form input[type="date"],
+#category_form input[type="number"],
+#category_form select {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  font-size: 16px;
+}
+
+#category_form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='5' viewBox='0 0 10 5'%3E%3Cpath fill='%23333' d='M5 5l5-5H0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+#category_form button[type="submit"] {
+  background-color: #2c3e50;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#category_form button[type="submit"]:hover {
+  background-color: #34495e;
+}
+
+#category_form input:invalid {
+  border-color: #e74c3c;
+}
+
+#category_form input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+/*--- FIN style category_form---*/
+/*---style course_form ---*/
+#course_form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+#course_form div {
+  margin: 10px;
+}
+
+#course_form label {
+  display: block;
+  font-weight: bold;
+}
+
+#course_form input[type="text"],
+#course_form input[type="date"],
+#course_form input[type="number"],
+#course_form select {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  font-size: 16px;
+}
+
+#course_form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='5' viewBox='0 0 10 5'%3E%3Cpath fill='%23333' d='M5 5l5-5H0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+#course_form button[type="submit"] {
+  background-color: #2c3e50;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#course_form button[type="submit"]:hover {
+  background-color: #34495e;
+}
+
+#course_form input:invalid {
+  border-color: #e74c3c;
+}
+
+#course_form input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+/*--- FIN style course_form---*/
+/*---style module_form ---*/
+#module_form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+#module_form div {
+  margin: 10px;
+}
+
+#module_form label {
+  display: block;
+  font-weight: bold;
+}
+
+#module_form input[type="text"],
+#module_form input[type="date"],
+#module_form input[type="number"],
+#module_form select {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  font-size: 16px;
+}
+
+#module_form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='5' viewBox='0 0 10 5'%3E%3Cpath fill='%23333' d='M5 5l5-5H0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+#module_form button[type="submit"] {
+  background-color: #2c3e50;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#module_form button[type="submit"]:hover {
+  background-color: #34495e;
+}
+
+#module_form input:invalid {
+  border-color: #e74c3c;
+}
+
+#module_form input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+/*--- FIN style module_form---*/
+/*---style student_form ---*/
+#student_form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+#student_form div {
+  margin: 10px;
+}
+
+#student_form label {
+  display: block;
+  font-weight: bold;
+}
+
+#student_form input[type="text"],
+#student_form input[type="date"],
+#student_form input[type="number"],
+#student_form select {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  font-size: 16px;
+}
+
+#student_form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='5' viewBox='0 0 10 5'%3E%3Cpath fill='%23333' d='M5 5l5-5H0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+#student_form button[type="submit"] {
+  background-color: #2c3e50;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#student_form button[type="submit"]:hover {
+  background-color: #34495e;
+}
+
+#student_form input:invalid {
+  border-color: #e74c3c;
+}
+
+#student_form input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+/*--- FIN style student_form---*/
+/*---style teacher_form ---*/
+#teacher_form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+#teacher_form div {
+  margin: 10px;
+}
+
+#teacher_form label {
+  display: block;
+  font-weight: bold;
+}
+
+#teacher_form input[type="text"],
+#teacher_form input[type="date"],
+#teacher_form input[type="number"],
+#teacher_form select {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  font-size: 16px;
+}
+
+#teacher_form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='5' viewBox='0 0 10 5'%3E%3Cpath fill='%23333' d='M5 5l5-5H0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+#teacher_form button[type="submit"] {
+  background-color: #2c3e50;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#teacher_form button[type="submit"]:hover {
+  background-color: #34495e;
+}
+
+#teacher_form input:invalid {
+  border-color: #e74c3c;
+}
+
+#teacher_form input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+/*--- FIN style teacher_form---*/
+/*---style registration_form ---*/
+.registration-form-class form{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  font-family: Arial, sans-serif;
+}
+
+#registration_form_email, #registration_form_pseudo, #registration_form_plainPassword_first, #registration_form_plainPassword_second, .password_field div {
+  margin: 10px;
+}
+
+#registration_form_email, #registration_form_pseudo, #registration_form_plainPassword_first, #registration_form_plainPassword_second, .password_field label {
+  display: block;
+  font-weight: bold;
+}
+
+#registration_form_email, #registration_form_pseudo, #registration_form_plainPassword_first, #registration_form_plainPassword_second, .password_field input[type="text"],
+#registration_form_email, #registration_form_pseudo, #registration_form_plainPassword_first, #registration_form_plainPassword_second, .password_field input[type="date"],
+#registration_form_email, #registration_form_pseudo, #registration_form_plainPassword_first, #registration_form_plainPassword_second, .password_field input[type="number"],
+#registration_form_email, #registration_form_pseudo, #registration_form_plainPassword_first, #registration_form_plainPassword_second, .password_field select {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  font-size: 16px;
+}
+
+#registration_form_email, #registration_form_pseudo, #registration_form_plainPassword_first, #registration_form_plainPassword_second, .password_field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='5' viewBox='0 0 10 5'%3E%3Cpath fill='%23333' d='M5 5l5-5H0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.registration-form-class form button[type="submit"] {
+  background-color: #2c3e50;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.registration-form-class form button[type="submit"]:hover {
+  background-color: #34495e;
+}
+
+.registration-form-class form input:invalid {
+  border-color: #e74c3c;
+}
+
+.registration-form-class form input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+/*--- FIN style registration_form---*/
+/*---style login_form ---*/
+.login-form-class {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+.login-form-class div {
+  margin: 10px;
+}
+
+.login-form-class label {
+  display: block;
+  font-weight: bold;
+}
+
+.login-form-class input[type="text"],
+.login-form-class input[type="date"],
+.login-form-class input[type="number"],
+.login-form-class select {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  font-size: 16px;
+}
+
+.login-form-class select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='5' viewBox='0 0 10 5'%3E%3Cpath fill='%23333' d='M5 5l5-5H0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.login-form-class button[type="submit"] {
+  background-color: #2c3e50;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-form-class button[type="submit"]:hover {
+  background-color: #34495e;
+}
+
+.login-form-class input:invalid {
+  border-color: #e74c3c;
+}
+
+.login-form-class input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+/*--- FIN style login_form---*/
