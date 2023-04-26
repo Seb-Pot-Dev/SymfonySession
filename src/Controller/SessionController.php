@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use doctrine;
 use App\Entity\Module;
 use App\Entity\Session;
 use App\Entity\Student;
@@ -19,7 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class SessionController extends AbstractController
 {
     #[Route('/session', name: 'app_session')]
-    public function index(ManagerRegistry $doctrine, session $session = null, Request $request): Response
+    public function index(ManagerRegistry $doctrine, Session $session = null, Request $request): Response
     {
         $sessions= $doctrine->getRepository(Session::class)->findBy([], ['name' => 'ASC']);
         
@@ -78,7 +79,7 @@ class SessionController extends AbstractController
     }
 
     // Pour supprimer un étudiant de la session et le rendre disponible
-    #[Route("/session/removeStudent/{idSe}/{idSt}", name: 'remove_student')]
+    #[Route("/session/removeSessionStudent/{idSe}/{idSt}", name: 'remove_session_student')]
     #[ParamConverter("session", options:["mapping"=>["idSe"=>"id"]])]
     #[ParamConverter("student", options:["mapping"=>["idSt"=>"id"]])]
     public function removeStudent(ManagerRegistry $doctrine, Session $session, Student $student)
