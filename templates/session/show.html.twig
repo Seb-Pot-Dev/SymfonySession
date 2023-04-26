@@ -3,7 +3,7 @@
 {% block title %}Détail d'une session{% endblock %}
 
 {% block body %}
-
+<div class="upper">
 <h1>Détail de la session: "{{ session.name }}"</h1>
     <ul class="session-detail-container">
         {# <li class="session-detail-items">Durée : {{session.totalDuration}} jours</li> #}
@@ -11,9 +11,9 @@
         <li class="session-detail-items">Débute le {{ session.dateStart|date("d/m/Y") }} et finit le {{ session.dateStart|date_modify('+' ~ session.totalDuration ~ 'day')|date("d/m/Y") }}</li>        
         <li class="session-detail-items">Nombre de places maximum: {{session.nbPlace}} places </li>
         <li class="session-detail-items">Nombre de places disponibles : {{session.availableNbPlace}} places </li>        
-        <li class="session-detail-items">Nombre de plannings : {{session.nbPlannings}} plannings </li>        
+        <li class="session-detail-items">Nombre de modules plannifiés : {{session.nbPlannings}} </li>        
     </ul>
-
+</div>
 <div class="detail-session-main">
 
 <div class="detail-session-left">
@@ -59,15 +59,21 @@
                     <tr class="clickable-row"
                      {# onclick="window.location='{{ path('show_module', {'id': module.id}) }}'" #}
                      >
-                        <td >{{ module.name }}
-                        
-                            <form action="{{ path('add_planning', {'idSe': session.id, 'idMo': module.id}) }}" method="post">
+                     <td >
+                         <div class="inline-infos">
+                         {{ module.name }}
+
+                         <form action="{{ path('add_planning', {'idSe': session.id, 'idMo': module.id}) }}" method="post">
+                                <div class="inline-infos">
 
                                 <label for="nbDay">Durée (jours):</label>
                                 <input type="number" name="nbDay" min="1" max="365" value="1">
         
                                 <button class="button-add" type="submit" name="submit"><i class="fa-solid fa-plus"></i></button>
+                            </div>
                             </form>
+                        </div>
+
                         </td>
                     </tr>
                 {% endfor %}

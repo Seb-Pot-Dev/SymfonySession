@@ -72,12 +72,6 @@ class SessionRepository extends ServiceEntityRepository
         $sub = $em->createQueryBuilder();
 
         $qb = $sub;
-        // sélectionner tous les planning dont l'id de session est passé en paramètre
-        // $qb->select('p')
-        //     ->from('app\entity\planning', 'p')
-        //     ->leftJoin('p.session', 's')
-        //     ->leftJoin('p.module', 'm')
-        //     ->where('p.session = :id');
 
         // sélectionner tous les modules dont l'id est présent dans les plannings de la session
         $qb->select('m')

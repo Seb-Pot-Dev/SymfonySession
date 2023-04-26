@@ -11,10 +11,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
@@ -29,8 +31,12 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function register(Security $security, Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
+        $user=$security->getUser();
+
+        if($security->isGranted("ROLE_ADMIN") && $user){
+
         $users=$doctrine->getRepository(User::class)->findAll();
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -67,10 +73,15 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-            'users' => $users,
-        ]);
+            return $this->render('registration/register.html.twig', [
+                'registrationForm' => $form->createView(),
+                'users' => $users,
+            ]);
+        }
+        else{
+            throw new AccessDeniedException('Vous n\'avez pas le droit d\'accéder à cette page.');
+            return $this->redirectToRoute('app_login');
+        }
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]

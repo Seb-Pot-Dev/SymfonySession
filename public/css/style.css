@@ -18,7 +18,10 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    font-family: 'Roboto', sans-serif;
 }
+
+
 nav{
   background-color: var(--background-color);
   margin-bottom: 10px;
@@ -28,8 +31,7 @@ nav ul{
     display: flex;
     justify-content: space-between;
     list-style: none;
-    flex-wrap: wrap;
-    /* color: red; */
+    flex-wrap: wrap; 
 }
 nav ul a{
     display: block;
@@ -93,6 +95,7 @@ a{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 5px;
 }
 .session-detail-items{
     border-radius: 5px;
@@ -184,7 +187,11 @@ table {
   tbody tr:hover {
     background-color: #f9f9f9;
   }
-  
+  .inline-infos{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
 
   
   
@@ -678,8 +685,3 @@ table {
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
 }
 /*--- FIN style login_form---*/
-
-/*---RESPONSIVE---*/
-@media only screen and (max-width: 600px) {
-  nav ul
-}

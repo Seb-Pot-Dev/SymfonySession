@@ -8,6 +8,7 @@ use App\Form\CategoryFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,52 +16,65 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CategoryController extends AbstractController
 {
     #[Route('/category', name: 'app_category')]
-    public function index(ManagerRegistry $doctrine, Category $category = null, Request $request): Response
+    public function index(Security $security, ManagerRegistry $doctrine, Category $category = null, Request $request): Response
     //On appel le manager de doctrine 
     {
-        //récupérer les Category de la base de donnees
-        $categories = $doctrine->getRepository(Category::class)->findBy([], ["name" => "ASC"]);
+        $user=$security->getUser();
+        if($user){
+            //récupérer les Category de la base de donnees
+            $categories = $doctrine->getRepository(Category::class)->findBy([], ["name" => "ASC"]);
 
-                //FORMULAIRE -------------
-            //Construire un formulaire qui se repose sur le $builder présent dans le CategoryFormType
-            $form = $this->createForm(CategoryFormType::class, $category);
-            //Quand il y a une action dans le formulaire, analyse ce que récupère la requete 
-            $form->handleRequest($request);
+                    //FORMULAIRE -------------
+                //Construire un formulaire qui se repose sur le $builder présent dans le CategoryFormType
+                $form = $this->createForm(CategoryFormType::class, $category);
+                //Quand il y a une action dans le formulaire, analyse ce que récupère la requete 
+                $form->handleRequest($request);
 
-            //Si le formulaire est soumis et passe les filtres de sécurité
-            if($form->isSubmitted() && $form->isValid()){
+                //Si le formulaire est soumis et passe les filtres de sécurité
+                if($form->isSubmitted() && $form->isValid()){
 
-                //récupère les données du formulaire saisies et les injectent 'hydrater' via les setter dans l'objet entreprise.
-                $category = $form->getData();
-                //On récupère le manager de doctrine pour accéder aux méthodes suivantes
-                $entityManager = $doctrine->getManager();
-                //On prépare notre objet
-                $entityManager->persist($category);
-                //On execute notre objet pour insérer les données en BDD.
-                $entityManager->flush();
+                    //récupère les données du formulaire saisies et les injectent 'hydrater' via les setter dans l'objet entreprise.
+                    $category = $form->getData();
+                    //On récupère le manager de doctrine pour accéder aux méthodes suivantes
+                    $entityManager = $doctrine->getManager();
+                    //On prépare notre objet
+                    $entityManager->persist($category);
+                    //On execute notre objet pour insérer les données en BDD.
+                    $entityManager->flush();
 
-                return $this->redirectToRoute('app_category');
-            }
-                //FIN FOMULAIRE ---------
-        //renvoie la vue et associe des données
-        return $this->render('category/index.html.twig', [
-            'controller_name' => 'CategoryController',
-            'categories' => $categories,
-            'formAddCategory'=>$form->createView()
-        ]);
+                    return $this->redirectToRoute('app_category');
+                }
+                    //FIN FOMULAIRE ---------
+            //renvoie la vue et associe des données
+            return $this->render('category/index.html.twig', [
+                'controller_name' => 'CategoryController',
+                'categories' => $categories,
+                'formAddCategory'=>$form->createView()
+            ]);
+        }
+        else{
+            return $this->redirectToRoute('app_login');
+        }
     }
 
     #[Route('/category/remove/{id}', name: 'remove_category')]
-    public function remove(EntityManagerInterface $entityManager, Category $category = null): Response
+    public function remove(Security $security, EntityManagerInterface $entityManager, Category $category = null): Response
     {
-        if($category){
-            $entityManager->remove($category);
-            $entityManager->flush();
-        
-            return $this->redirectToRoute('app_category');
+        $user=$security->getUser();
+        if($user){
+            if($category){
+                $entityManager->remove($category);
+                $entityManager->flush();
+            
+                return $this->redirectToRoute('app_category');
+            }
+            else{
+                return $this->redirectToRoute('app_category');
+            }
         }
         else{
-            return $this->redirectToRoute('app_category');
+            return $this->redirectToRoute('app_login');
+
         }
     }
     // #[Route('/category', name: 'add_category')]
@@ -96,15 +110,20 @@ class CategoryController extends AbstractController
     // }
 
     #[Route('/category/{id}', name: 'show_category')]
-    public function show(Category $category): Response
+    public function show(Security $security, Category $category): Response
     //On appel l'objet Category dont l'id est passé en parametre par la route
     {
-
-        //renvoie la vue et associe des données
-        return $this->render('category/show.html.twig', [
-            'controller_name' => 'CategoryController',
-            'category' => $category
-        ]);
+        $user=$security->getUser();
+        if($user){
+            //renvoie la vue et associe des données
+            return $this->render('category/show.html.twig', [
+                'controller_name' => 'CategoryController',
+                'category' => $category
+            ]);
+        }
+        else{
+            return $this->redirectToRoute('app_login');
+        }
     }
 
     
