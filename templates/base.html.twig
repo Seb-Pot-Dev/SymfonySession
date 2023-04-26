@@ -19,9 +19,9 @@
         <nav>
             {% if app.user %}
             <ul>
+                <li><a class="session-button-nav" href="{{ path('app_session') }}">Sessions</a></li>
                 <li><a href="{{ path('app_category') }}">Catégories</a></li>
                 <li><a href="{{ path('app_course') }}">Formations</a></li>
-                <li><a href="{{ path('app_session') }}">Sessions</a></li>
                 <li><a href="{{ path('app_module') }}">Modules</a></li>
                 <li><a href="{{ path('app_student') }}">Etudiants</a></li>
                 <li><a href="{{ path('app_teacher') }}">Profs</a></li>

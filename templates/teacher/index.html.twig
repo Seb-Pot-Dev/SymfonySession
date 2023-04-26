@@ -3,14 +3,16 @@
 {% block title %}Hello TeacherController!{% endblock %}
 
 {% block body %}
-<h2>Ajouter un prof</h2>
+<div class="upper">
+    <h2>Ajouter un prof</h2>
     {{ form(formAddTeacher)}}
-<h1>Liste des profs </h1>
+</div>
+<div class="lower">
 {% if teachers|length >= 1 %}
 <table>
     <thead class="table">
         <tr>
-            <th colspan="2">Liste des profs</th>
+            <th colspan="2"><h1>Liste des profs</h1></th>
         </tr>
         <tr>
             <td>Nom</td>
@@ -33,4 +35,6 @@
 {% else %}
 <p>Aucun professeurs enregistrés.</p>
 {% endif %}
+</div>
+
 {% endblock %}

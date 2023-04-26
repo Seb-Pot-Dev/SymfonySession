@@ -3,16 +3,17 @@
 {% block title %}Hello CategoryController!{% endblock %}
 
 {% block body %}
-
+<div class="upper">
 <h2>Ajouter une catégorie</h2>
     {{ form(formAddCategory) }}
-<h1>Liste des catégories</h1>
+</div>
+<div class="lower">
 {% if categories|length >= 1 %}
     
 <table>
     <thead class="table">
         <tr>
-            <th colspan="2">Liste des catégories</th>
+            <th colspan="2"><h1>Liste des catégories</h1></th>
         </tr>
         <tr>
             <td>Nom</td>
@@ -31,6 +32,6 @@
 {% else %}
     <p>Aucune catégories existantes.</p>
 {% endif %}
-
+</div>
 {% endblock %}
 

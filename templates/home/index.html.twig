@@ -3,11 +3,15 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
+<div class="upper">
+    <div class="homepage-box">
 
-<h1>Bienvenue sur SESSION 
-    {% if app.user %}
-    "{{ app.user.pseudo }}"
-    {% endif %}       
-</h1>
-<p>SESSION, l'app qui vous facilite la vie</p>
+        <h1>Bienvenue sur Session,  
+            {% if app.user %}
+            "{{ app.user.pseudo }}"
+            {% endif %}       
+        </h1>
+        <p>SESSION, l'app qui vous facilite la vie</p>
+    </div>
+</div>
 {% endblock %}

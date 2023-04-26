@@ -3,14 +3,16 @@
 {% block title %}Hello ModuleController!{% endblock %}
 
 {% block body %}
-<h2>Ajouter un module</h2>
-{{ form (formAddModule)}}
-<h1>Liste des modules toutes catégories</h1>
+<div class="upper">
+    <h2>Ajouter un module</h2>
+    {{ form (formAddModule)}}
+</div>
+<div class="lower">
 {% if modules|length >= 1 %}
 <table>
     <thead class="table">
         <tr>
-            <th colspan="2">Liste des modules</th>
+            <th colspan="2"><h1>Liste des modules</h1></th>
         </tr>
         <tr>
             <td>Nom</td>
@@ -33,6 +35,8 @@
 <p>Aucun modules enregistrés.</p>
 
 {% endif %}
+</div>
+
 
 
 {% endblock %}

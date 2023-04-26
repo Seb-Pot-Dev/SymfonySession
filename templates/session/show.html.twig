@@ -13,8 +13,11 @@
         <li class="session-detail-items">Nombre de places disponibles : {{session.availableNbPlace}} places </li>        
         <li class="session-detail-items">Nombre de plannings : {{session.nbPlannings}} plannings </li>        
     </ul>
-    <br>
-    {% if session.plannings|length >= 1 %}
+
+<div class="detail-session-main">
+
+<div class="detail-session-left">
+   {% if session.plannings|length >= 1 %}
     <table>
         <thead class="table">
             <tr>
@@ -42,7 +45,7 @@
     <table>
         <thead class="table">
             <tr>
-                <th><h4>Modules disponibles</h4></th>
+                <th><h3>Modules disponibles</h3></th>
             </tr>
             {% if available_modules|length >= 1 %}
             <tr>
@@ -75,8 +78,8 @@
             {% endif %}
         </tbody>
     </table>
-    
-    
+</div> 
+<div class="detail-session-right"> 
     <table>
         <thead class="table">
             <tr>
@@ -129,7 +132,7 @@
     <table>
         <thead class="table">
             <tr>
-                <th colspan="2"><h4>Étudiants disponibles</h4></th>
+                <th colspan="2"><h3>Étudiants disponibles</h3></th>
             </tr>
             {% if available_students|length >= 1 %}
             <tr>
@@ -149,11 +152,14 @@
                         <a class="button-add" href="{{ path('add_student', {'idSe': session.id, 'idSt': student.id}) }}"><i class="fa-solid fa-plus"></i></a></td></tr>
                     </tr>
                     {% endfor %}
-                    <tr><td><a class="button-add" href="{{ path('app_student') }}">Créer un nouvel étudiant</a></td></tr>
+                    <tr><td colspan="2"><a class="button-add" href="{{ path('app_student') }}">Créer un nouvel étudiant</a></td></tr>
+
             {% else %}
-                <tr><td>Pas d'étudiant disponibles.</td></tr>
-                <tr><td><a class="button-add" href="{{ path('app_student') }}">Créer un nouvel étudiant</a></td></tr>             
+                <tr><td>Pas d'étudiant disponibles.</td>
+                <td><a class="button-add" href="{{ path('app_student') }}">Créer un nouvel étudiant</a></td></tr>             
         </tbody>
     </table>
             {% endif %}
+</div> 
+</div>
 {% endblock %}

@@ -3,14 +3,17 @@
 {% block title %}Hello CourseController!{% endblock %}
 
 {% block body %}
-<h2>Ajouter une formation</h2>
-{{ form (formAddCourse)}}
-<h1>Liste des formations</h1>
+<div class="upper">
+    <h2>Ajouter une formation</h2>
+    {{ form (formAddCourse)}}
+</div>
+<div class="lower">
+
 {% if courses >= 1 %}
 <table>
     <thead class="table">
         <tr>
-            <th colspan="2">Liste des formations</th>
+            <th colspan="2"><h1>Liste des formations</h1></th>
         </tr>
         <tr>
             <td>Nom</td>
@@ -31,5 +34,5 @@
 {% else %}
     <p>Aucune formations enregistrées.</p>
 {% endif %}
-
+</div>
 {% endblock %}

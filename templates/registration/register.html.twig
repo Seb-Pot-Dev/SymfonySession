@@ -7,8 +7,11 @@
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
+<div class="upper">
+
 
 <h1>Ajouter un nouvel utilisateur</h1>
+</div>
 <div class="registration-form-class">
         {{ form_start(registrationForm) }}
             {{ form_row(registrationForm.email) }}
@@ -22,12 +25,12 @@
             <button type="submit" class="btn">Ajouter</button>
         {{ form_end(registrationForm) }}
 </div>
-<h1>Liste des utilisateurs autorisés de l'application SESSION:</h1>
+<div class="lower">
 {% if users|length >= 1 %}
 <table>
     <thead class="table">
         <tr>
-            <th colspan="2">Liste des profs</th>
+            <th colspan="2"><h1>Liste des utilisateurs de l'application SESSION</h1></th>
         </tr>
         <tr>
             <td>Nom</td>
@@ -51,5 +54,5 @@
 {% else %}
 <p>Aucun utilisateur autorisé pour le moment.</p>
 {% endif %}
-
+</div>
 {% endblock %}

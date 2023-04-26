@@ -3,15 +3,17 @@
 {% block title %}Hello sessionController!{% endblock %}
 
 {% block body %}
-<h2>Ajouter une session</h2>
-    {{ form(formAddSession)}}
-<h1>Toutes les sessions</h1>
+<div class="upper">
+    <h2>Ajouter une session: </h2>
+        {{ form(formAddSession)}}
+</div>
+<div class="lower">
 {% if sessions|length >= 1 %}
     
 <table>
     <thead class="table">
         <tr>
-            <th colspan="9">Liste des sessions</th>
+            <th colspan="9"><h1>Liste des sessions</h1></th>
         </tr>
         <tr>
             <td>Nom</td>
@@ -60,4 +62,5 @@
 
     {% endif %}
 
+</div>
 {% endblock %}
