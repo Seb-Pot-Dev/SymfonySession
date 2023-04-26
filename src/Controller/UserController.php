@@ -19,4 +19,17 @@ class UserController extends AbstractController
             'users'=>$users,
         ]);
     }
+    #[Route('/user/remove/{id}', name: 'remove_user')]
+    public function remove(EntityManagerInterface $entityManager, user $user = null): Response
+    {
+        if($user){
+            $entityManager->remove($user);
+            $entityManager->flush();
+        
+            return $this->redirectToRoute('app_user');
+        }
+        else{
+            return $this->redirectToRoute('app_user');
+        }
+    }
 }

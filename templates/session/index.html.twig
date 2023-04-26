@@ -36,7 +36,7 @@
                 <td>{{ session.nbPlace }}</td>
                 <td>{{ session.availableNbPlace }}</td>
                 <td>{{ session.nbPlannings }}</td>
-                <td><a class="button-delete" href="{{ path('remove_session', {'id': session.id}) }}">suppr</a></td>
+                <td><a class="button-delete" href="{{ path('remove_session', {'id': session.id}) }}"><i class="fa-solid fa-trash-can"></i></a></td>
             </tr>
         {% endfor %}
     </tbody>

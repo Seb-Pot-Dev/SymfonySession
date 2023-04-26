@@ -3,7 +3,7 @@
     --secondary-color: rgb(255, 252, 205);
     --background-color: rgb(213, 213, 213);
     --text-color1: black;
-    --admin-action1: rgb(255, 154, 154);
+    --admin-action1: rgb(255, 0, 0);
   }
 *{
     margin: 0;
@@ -53,6 +53,14 @@ a{
     border-radius: 5px;
     margin: 3px;
     padding: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: auto;
+}
+.button-delete:hover {
+  background-color: #a02a2a;
 }
 /*---style table ---*/
 table {
@@ -86,18 +94,8 @@ table {
     background-color: #f9f9f9;
   }
   
-  .button-delete {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    border-radius: 4px;
-    text-decoration: none;
-  }
+
   
-  .button-delete:hover {
-    background-color: #a02a2a;
-  }
   
 /*---style table ---*/
 
