@@ -79,7 +79,7 @@ class RegistrationController extends AbstractController
             ]);
         }
         else{
-            throw new AccessDeniedException('Vous n\'avez pas le droit d\'accéder à cette page.');
+            // throw new AccessDeniedException('Vous n\'avez pas le droit d\'accéder à cette page.');
             return $this->redirectToRoute('app_login');
         }
     }

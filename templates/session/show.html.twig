@@ -89,7 +89,7 @@
     <table>
         <thead class="table">
             <tr>
-                <th colspan="2"><h3>Inscrits a la session:</h3></th>
+                <th colspan="2"><h3>Inscrits a la session: {{session.nbPlace - session.availableNbPlace}}/{{session.nbPlace}}</h3></th>
             </tr>
             {% if session.students|length >= 1 %}
 

@@ -2,9 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Course;
 use App\Entity\Session;
+use App\Entity\Teacher;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -31,9 +34,15 @@ class SessionFormType extends AbstractType
                 'label' => 'Places'
             ])
             //Select ici
-            ->add('course')
+            ->add('course', EntityType::class, [
+                'class' => Course::class,
+                'label' => 'Formation'
+            ])
             //Select ici
-            ->add('teacher')
+            ->add('teacher', EntityType::class, [
+                'class' => Teacher::class,
+                'label' => 'Prof'
+            ])
             //Ajouter ceci pour avoir l'input
             ->add('submit', SubmitType::class, [
                 'label' => 'Ajouter'
