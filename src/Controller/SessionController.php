@@ -202,10 +202,22 @@ class SessionController extends AbstractController
             if($session){
                 $entityManager->remove($session);
                 $entityManager->flush();
-            
+
+            //Pour ajouter un message flash
+            $this->addFlash(
+                'success',
+                'Session supprimée avec succès!'
+            );
+
                 return $this->redirectToRoute('app_session');
             }
             else{
+
+            //Pour ajouter un message flash
+            $this->addFlash(
+                'error',
+                'Erreur: la session n\'a pas été supprimée'
+            );
                 return $this->redirectToRoute('app_session');
             }
         }
@@ -218,6 +230,7 @@ class SessionController extends AbstractController
     public function show(Security $security, Session $session = null, SessionRepository $sr): Response
     //On appel l'objet session dont l'id est passé en parametre par la route
     {
+        
         $user=$security->getUser();
         if($user){
         
@@ -234,9 +247,7 @@ class SessionController extends AbstractController
                     'session' => $session,
                     'available_students' => $NotScheduledStudents,
                     'available_modules'=> $NotScheduledModules
-        
-                    // 'plannings' => $plannings
-                ]);
+                        ]);
             } else {
                 return $this->redirectToRoute('app_session');
             }

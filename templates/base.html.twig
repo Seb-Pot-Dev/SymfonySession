@@ -3,22 +3,52 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+        <link rel="javascript" type="text/javascript" href="">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <!-- Pour prendre en compteles media queries dans le css-->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+        
     </head>
     <body>
+        <div id="mySidenav" class="sidenav">
+            {% if app.user %}
+            <a href="#" id="closeBtn" class="close">X</a>
+            <ul>
+                <li><a href="{{ path('app_session') }}">Sessions</a></li>
+                <li><a href="{{ path('app_category') }}">Catégories</a></li>
+                <li><a href="#">Formations</a></li>
+                <li><a href="#">Modules</a></li>
+                <li><a href="#">Etudiants</a></li>
+                <li><a href="#">Profs</a></li>
+                {% if is_granted("ROLE_ADMIN") %}
+                <li><a href="{{ path('app_register') }}">Utilisateurs</a></li>
+                {% endif %}
+                <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+            </ul>
+                {% else %}
+            <ul>
+                <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+            </ul>
+                {% endif %}
+        </div>
+            
+            <a href="#" id="openBtn">
+              <span class="burger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </a>
         <nav>
             {% if app.user %}
             <ul>
@@ -43,5 +73,10 @@
         
         
         {% endblock %}
+        {% block javascripts %}
+        <script src="{{ asset('js/script.js') }}"></script>
+        {# <script href="{{ asset('js/script.js') }}"></script> #}
+        {{ encore_entry_script_tags('app') }}
+        {% endblock %}
     </body>
-</html>
+    </html>

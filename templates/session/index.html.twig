@@ -9,7 +9,27 @@
 </div>
 <div class="lower">
 {% if sessions|length >= 1 %}
+
+{% for type, messages in app.session.flashbag.all() %}
+    {% for message in messages %}
+    <div id="flash-container">
+        <div 
+            id="flash-{{type}}"
+            >{{message}}
+        </div>
+    </div> 
+        {# Or even with css class rendering:
+            <div class="flash-{{type}}">{{message}}</div>
+        #}
+    {% endfor %}
+{% endfor %}
     
+{% for flashMessage in app.session.flashbag.get('success') %}
+{{flashMessage}}
+{% endfor %}  
+{% for flashMessage in app.session.flashbag.get('error') %}
+{{flashMessage}}
+{% endfor %}  
 <table>
     <thead class="table">
         <tr>

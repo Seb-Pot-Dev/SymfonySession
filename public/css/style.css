@@ -12,6 +12,7 @@
     --palette2mh:#628de4;
     --palette3:#212A3E;
     --palette4:#9BA4B5;
+    --palette44:#bdcae2;
     --palette5:#280004;
   }
 *{
@@ -685,3 +686,113 @@ table {
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
 }
 /*--- FIN style login_form---*/
+
+/*--- MENU BURGER ---*/
+a#openBtn{
+  background-color: var(--main-color);
+}
+#mySidenav{
+  background-color: var(--main-color);
+}
+/* Sidenav menu */
+.sidenav {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: -250px;
+  background-color: var(--palette1);
+  padding-top: 60px;
+  transition: left 0.5s ease;
+}
+
+/* Sidenav menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #111;
+}
+
+.sidenav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Active class */
+.sidenav.active {
+  left: 0;
+}
+
+/* Close btn */
+.sidenav .close {
+  text-align: center;
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+}
+
+/* Icône burger */
+.burger-icon span {
+  display: block;
+  width: 35px;
+  height: 4px;
+  background-color: black;
+  margin: 6px 0;
+}
+a#closeBtn.close{
+  padding: 0px 10px;
+  margin: 10px;
+  margin-right: -1px;
+}
+
+@media screen and (max-width: 1200px) {
+nav{
+  display: none;
+}
+}
+
+@media screen and (min-width: 1201px) {
+a#openBtn{
+  display: none;
+}
+}
+/*--- MESSAGES FLASH ---*/
+
+html, body, #container {
+  height:100%;
+  width:100%;
+  margin:0;
+  padding:0;
+}
+#container {
+  overflow:hidden;
+  position:relative;
+}
+#flash-error {
+  -webkit-animation: cssAnimation 5s forwards; 
+  animation: cssAnimation 5s forwards;
+}
+#flash-success {
+  -webkit-animation: cssAnimation 1.5s forwards; 
+  animation: cssAnimation 1.5s forwards;
+}
+@keyframes cssAnimation {
+  0%   {opacity: 1;}
+  90%  {opacity: 1;}
+  100% {opacity: 0;}
+}
+@-webkit-keyframes cssAnimation {
+  0%   {opacity: 1;}
+  90%  {opacity: 1;}
+  100% {opacity: 0;}
+}
