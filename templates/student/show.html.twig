@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un student{% endblock %}
+
+{% block body %}
+
+<h2><i class="fa-regular fa-address-book"></i> Fiche Stagiaire</h2>
+<h3>{{student.firstname}} {{student.lastname}}</h3>
+<ul>
+
+<li>Date de naissance : {{student.birthdate|date("d/m/Y") }}</li>
+<li>Adresse : {{student.adress}}</li>
+<li>Email : {{student.email}} </li>
+
+</ul>
+<br>
+
+<h4>Session prévues</h4>
+{% if student.sessions|length >= 1 %}
+<ul>
+{% for session in student.sessions %}
+    <li>
+        <p>{{session.name}}
+        (du
+        {{session.dateStart|date("d/m/Y")}} au {{session.dateEnd|date("d/m/Y")}})
+        </p>
+        {% endfor %}
+    </li>    
+</ul>
+{% else %}
+<p>Cet étudiant n'est inscrit a aucunes sessions.</p>
+{% endif %}
+
+{% endblock %}

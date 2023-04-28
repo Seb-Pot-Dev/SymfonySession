@@ -724,7 +724,7 @@ a#openBtn{
 
 .sidenav a:hover p{
   color: #111;
- text-shadow: rgb(255, 255, 255) 0px 5px 15px;
+  text-shadow: rgb(255, 255, 255) 0px 5px 15px;
 }
 
 .sidenav ul {

@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Student;
 use App\Form\StudentFormType;
+use App\Repository\SessionRepository;
+use App\Repository\StudentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -74,6 +76,33 @@ class StudentController extends AbstractController
         }
         else{
             return $this->redirectToRoute('app_login');
+        }
+    }
+
+    #[Route('/student/{id}', name: 'show_student')]
+    public function show(Security $security, student $student = null, StudentRepository $sr): Response
+    //On appel l'objet student dont l'id est passé en parametre par la route
+    {
+        $user=$security->getUser();
+
+        if($user){
+
+            //si student existe (initalisé a null)
+            if($student) {
+                //récupère l'id de la student
+                $session_id=$student->getId();
+
+                //renvoie la vue et associe des données
+                return $this->render('student/show.html.twig', [
+                    'student' => $student,
+                        ]);
+            } else {
+                return $this->redirectToRoute('app_student');
+            }
+        }
+        else{
+            return $this->redirectToRoute('app_login');
+
         }
     }
 }
