@@ -14,3 +14,6 @@ function openNav() {
 function closeNav() {
   sidenav.classList.remove("active");
 }
+
+var buttonDelete= document.getElementById("button-delete");
+

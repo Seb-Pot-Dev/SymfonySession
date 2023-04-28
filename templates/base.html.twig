@@ -24,20 +24,20 @@
             {% if app.user %}
             <a href="#" id="closeBtn" class="close">X</a>
             <ul>
-                <li><a href="{{ path('app_session') }}">Sessions</a></li>
-                <li><a href="{{ path('app_category') }}">Catégories</a></li>
-                <li><a href="#">Formations</a></li>
-                <li><a href="#">Modules</a></li>
-                <li><a href="#">Etudiants</a></li>
-                <li><a href="#">Profs</a></li>
+                <li><a href="{{ path('app_session') }}"><p>Sessions</p> </a></li>
+                <li><a href="{{ path('app_category') }}"><p>Catégories</p></a></li>
+                <li><a href="{{ path('app_course') }}"><p>Formations</p></a></li>
+                <li><a href="{{ path('app_module') }}"><p>Modules</p></a></li>
+                <li><a href="{{ path('app_student') }}"><p>Etudiants</p></a></li>
+                <li><a href="{{ path('app_teacher') }}"><p>Profs</p></a></li>
                 {% if is_granted("ROLE_ADMIN") %}
-                <li><a href="{{ path('app_register') }}">Utilisateurs</a></li>
+                <li><a href="{{ path('app_register') }}"><p>Utilisateurs</p></a></li>
                 {% endif %}
-                <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                <li><a href="{{ path('app_logout') }}"><p>Se déconnecter</p></a></li>
             </ul>
                 {% else %}
             <ul>
-                <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+                <li><a href="{{ path('app_login') }}"><p>Se connecter</p></a></li>
             </ul>
                 {% endif %}
         </div>

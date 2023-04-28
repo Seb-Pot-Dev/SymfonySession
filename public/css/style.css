@@ -690,10 +690,14 @@ table {
 /*--- MENU BURGER ---*/
 a#openBtn{
   background-color: var(--main-color);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
 #mySidenav{
   background-color: var(--main-color);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
 /* Sidenav menu */
 .sidenav {
   height: 100%;
@@ -705,6 +709,7 @@ a#openBtn{
   background-color: var(--palette1);
   padding-top: 60px;
   transition: left 0.5s ease;
+  
 }
 
 /* Sidenav menu links */
@@ -717,8 +722,9 @@ a#openBtn{
   transition: 0.3s;
 }
 
-.sidenav a:hover {
+.sidenav a:hover p{
   color: #111;
+ text-shadow: rgb(255, 255, 255) 0px 5px 15px;
 }
 
 .sidenav ul {
@@ -748,6 +754,8 @@ a#openBtn{
   height: 4px;
   background-color: black;
   margin: 6px 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
 }
 a#closeBtn.close{
   padding: 0px 10px;
@@ -768,13 +776,7 @@ a#openBtn{
 }
 /*--- MESSAGES FLASH ---*/
 
-html, body, #container {
-  height:100%;
-  width:100%;
-  margin:0;
-  padding:0;
-}
-#container {
+#flash-container {
   overflow:hidden;
   position:relative;
 }

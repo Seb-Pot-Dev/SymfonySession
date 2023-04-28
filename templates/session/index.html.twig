@@ -10,12 +10,12 @@
 <div class="lower">
 {% if sessions|length >= 1 %}
 
+{# AFFICHAGE DE MESSAGES D'ERREUR / SUCCES #}
+<div id="flash-container">
 {% for type, messages in app.session.flashbag.all() %}
     {% for message in messages %}
-    <div id="flash-container">
-        <div 
-            id="flash-{{type}}"
-            >{{message}}
+        <div id="flash-{{type}}">
+            {{message}}
         </div>
     </div> 
         {# Or even with css class rendering:
@@ -64,9 +64,6 @@
     </tbody>
 </table>
 
-
-
-
             {# <ul>
                 <li>Nom: {{session.name}}</li>
                 <li>Prof référent : {{session.teacher}}</li>
@@ -76,6 +73,8 @@
                 <li>Nombre de places disponibles : {{session.availableNbPlace}} places </li>        
                 <li>Nombre de plannings : {{session.nbPlannings}} plannings </li> 
             </ul> #}
+
+            
     {% else %}
     
     <p>Aucune sessions enregistrées.</p>
